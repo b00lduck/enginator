@@ -8,8 +8,9 @@ int et[ENGINETYPES] = {ENGINETYPE_R3,ENGINETYPE_R4,ENGINETYPE_R6,ENGINETYPE_V8};
 
 Engine::Engine() {
 	params = new EngineParams(this);
-  params->load("engine.params");
+	params->load("engine.params");
 	phase = 0;
+	ignition = true;
 
 	int i;
 	for (i=0;i<MAXCYLS;i++) {
@@ -20,7 +21,6 @@ Engine::Engine() {
 	
 	setEngineType(params->params[PARAM_ENG_TYPE]);
 
-	turbonoise = new Noise();
 	exhaust_noise = new Noise();
 	intake_noise = new Noise();
 }
@@ -28,7 +28,6 @@ Engine::Engine() {
 Engine::~Engine() {
   params->save("engine.params");
 	SAFE_DELETE(params);
-	SAFE_DELETE(turbonoise);
 	for (int i=0;i<MAXCYLS;i++) {
 		SAFE_DELETE(myCyls[i]);
 		SAFE_DELETE(myOutVents[i]);
@@ -73,6 +72,10 @@ void Engine::setRPM(float rpm) {
 	this->rpm = rpm;	
 }
 
+void Engine::setIgnition(bool ignition) {
+	this->ignition = ignition;	
+}
+
 void Engine::process() {
 
 	rpm = params->params[PARAM_ENG_RPM];
@@ -95,7 +98,7 @@ void Engine::process() {
 		exhaust[i] = (exhaust[i]*exhaust_noise->tick()*_P(PARAM_ENG_NOISE))
 	  	         + (exhaust[i]*(1-_P(PARAM_ENG_NOISE)));
 
-  	intake[i] = (intake[i]*intake_noise->tick()*_P(PARAM_ENG_NOISE))
+  		intake[i] = (intake[i]*intake_noise->tick()*_P(PARAM_ENG_NOISE))
 		          + (intake[i]*(1-_P(PARAM_ENG_NOISE)));
   }
 }

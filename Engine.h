@@ -25,33 +25,42 @@ class Engine {
 
 	public:
 	
-	Engine();
-	~Engine();
+		Engine();
+		~Engine();
 
-	float move();
+		float move();
 
-	void setThrottle(float throttle);
-	void setRPM(float rpm);
-	void process();
+		void setThrottle(float throttle);
+		void setRPM(float rpm);
+		void setIgnition(bool ignition);
+		void process();
 
-	void setEngineType(int engtype);
-	void setCyls(int cyls);
-	
-	EnginePart *myCyls[MAXCYLS];
-	EnginePart *myOutVents[MAXVENTS];
-	EnginePart *myInVents[MAXVENTS];
+		void setEngineType(int engtype);
+		void setCyls(int cyls);
+		
+		float exhaust[MAXCYLS];
+		float intake[MAXCYLS];
 
-	int cyls,is_v,type;
+		float phase;
+		int cyls;
 
-	float phase,rpm,throttle,e;
+		EngineParams *params;
 
-	EngineParams *params;
+		bool ignition;
+		float throttle;
 
-	float exhaust[MAXCYLS];
-	float intake[MAXCYLS];
+	private:
 
-	Noise* turbonoise;
-	Noise* exhaust_noise;
-	Noise* intake_noise;
+		EnginePart *myCyls[MAXCYLS];
+		EnginePart *myOutVents[MAXVENTS];
+		EnginePart *myInVents[MAXVENTS];
+
+		int is_v,type;
+
+		float rpm;
+
+		Noise* exhaust_noise;
+		Noise* intake_noise;
+
 
 };

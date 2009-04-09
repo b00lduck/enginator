@@ -32,8 +32,6 @@ Synth::~Synth() {
 	SAFE_DELETE(myLimiter);
 }
 
-unsigned long clock = 0;
-
 void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 
 	while (length_samples > 0) {
@@ -49,6 +47,7 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 		float engineout1 = 0;
 		float engineout2 = 0;
 		float enginein = 0;
+		
 		for(int i=0;i<myEngine->cyls;i++) {
 		
 			switch (banks[i]) {
@@ -89,6 +88,21 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 	}
 }
 
+
+void Synth::setRPM(float rpm) {
+	myEngine->setRPM(rpm);
+}
+
+void Synth::setThrottle(float throttle) {
+	myEngine->setThrottle(throttle);
+}
+
+void Synth::setIgnition(bool ignition) {
+	myEngine->setIgnition(ignition);
+}
+
+
+/*
 float Synth::getTiming(float start, float end, float ph) {
 
 	if (end < start) {
@@ -99,4 +113,4 @@ float Synth::getTiming(float start, float end, float ph) {
 	}
 
 	return 0;
-}
+}*/

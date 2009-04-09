@@ -7,24 +7,26 @@
 
 class Synth {
   
-  public:
-	Synth();
-	~Synth();
-	void synthRender(float* pDataL, float* pDataR, DWORD length_samples);
+	public:
+		Synth();
+		~Synth();
+		void synthRender(float* pDataL, float* pDataR, DWORD length_samples);
 
-	Engine *myEngine;
-	Exhaust *myExhaust1;
-	Exhaust *myExhaust2;
-	Intake *myIntake;
-	Limiter *myLimiter;
+		Engine *myEngine;
+		Exhaust *myExhaust1;
+		Exhaust *myExhaust2;
+		Intake *myIntake;
 
-  private:
-	float left,right;
+		void setThrottle(float throttle);
+		void setRPM(float rpm);
+		void setIgnition(bool ignition);
 
-	float getTiming(float start, float end, float ph);
+	private:
 
-	IIR *myHPL;
-	IIR *myHPR;
+		float left,right;
+		IIR *myHPL;
+		IIR *myHPR;
+		Limiter *myLimiter;
 
 };
 

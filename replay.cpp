@@ -9,22 +9,8 @@ BOOL				InitInstance( HINSTANCE, int );
 LRESULT CALLBACK	WndProc( HWND, UINT, WPARAM, LPARAM );
 
 CVSS* myVSS;
-
 char text[500];
-
-DWORD lastsamp;
-
 HFONT smFont = NULL;
-
-#define LENGRAPH 350
-#define NUMGRAPH 3
-#define GRAPH_H 100
-
-int graph[NUMGRAPH][LENGRAPH];
-int rp = 0;
-
-void main(void*) {}
-
 bool clicked = true;
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow ) {
@@ -72,14 +58,11 @@ BOOL InitInstance( HINSTANCE hInstance, int nCmdShow ) {
 
    myVSS->Init( hWnd );  
    myVSS->Play();   	
-   
-   ZeroMemory( graph, sizeof(int) * NUMGRAPH * LENGRAPH );
+ 
    return TRUE;
 }
 
-int lastx=500,lasty=600;
-int lastxp=500,lastyp=600;
-int x,y,param,elemid,chain;
+
 
 void PaintText(HDC hdc) {
 
@@ -91,24 +74,24 @@ void PaintText(HDC hdc) {
 	rt.top = 400;
 
 	if (myVSS) {
-		sprintf(text,"rpm: %.0f                   ",myVSS->p_Synth->myEngine->rpm);
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"gain: %.2f                   ",myVSS->p_Synth->myLimiter->gain);  
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+	//	sprintf(text,"rpm: %.0f                   ",myVSS->p_Synth->myEngine->rpm);
+	//	DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+	//	sprintf(text,"gain: %.2f                   ",myVSS->p_Synth->myLimiter->gain);  
+	//	DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+	//	sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
+	//	DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 	}		
 }
 
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
-  int i;
+	int x = 0;
+	int y = 0;
 
 	switch( message ) {
 
   	  case WM_TIMER:
-
 			InvalidateRect(hWnd,NULL,FALSE);
 			UpdateWindow(hWnd);
 			myVSS->RenderTrigger();		

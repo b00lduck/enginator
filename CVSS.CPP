@@ -6,24 +6,24 @@
 CVSS* MYVSS = NULL;
 
 CVSS::CVSS() {
-  MYVSS = this;
-  m_hWnd = NULL;
-  m_pDS = NULL;
-  m_pDSB = NULL;
-  m_buffersize = 0;
-  m_lastbufplaypos = 0;
-  m_bufplaypos = 0;
-  m_bStopSoundThread = FALSE;
-  m_playing = FALSE;
-  m_samples_rendered = -MAINBUFLEN;
-  m_eventcount = 0;
-  m_syncEvent = NULL;
-  p_Synth = new Synth();
+	MYVSS = this;
+	m_hWnd = NULL;
+	m_pDS = NULL;
+	m_pDSB = NULL;
+	m_buffersize = 0;
+	m_lastbufplaypos = 0;
+	m_bufplaypos = 0;
+	m_bStopSoundThread = FALSE;
+	m_playing = FALSE;
+	m_samples_rendered = -MAINBUFLEN;
+	m_eventcount = 0;
+	m_syncEvent = NULL;
+	p_Synth = new Synth();
 }
 
 DWORD WINAPI _renderThread(void* dummy) {
-  UNREFERENCED_PARAMETER(dummy);
-  return MYVSS->RenderThread();
+	UNREFERENCED_PARAMETER(dummy);
+	return MYVSS->RenderThread();
 }
 
 DWORD CVSS::RenderThread() {
@@ -58,13 +58,14 @@ DWORD CVSS::RenderThread() {
 	  }
 	  LeaveCriticalSection(&CSRenderThread);
 	  WaitForSingleObject(m_syncEvent,RENDERSLEEP);
-  }
-  m_bStopSoundThread = FALSE;
+	}
+	
+  	SAFE_DELETE(p_Synth);
+	SAFE_RELEASE(m_pDSB);
+	SAFE_RELEASE(m_pDS);   
+	DeleteCriticalSection(&CSRenderThread);
 
-
-
-
-  return m_samples_rendered;
+	return 0;
 }
 
 HRESULT CVSS::Init( HWND hWnd ) {
@@ -110,46 +111,46 @@ void CVSS::Play() {
 }
 
 void CVSS::Stop() {
-  m_bStopSoundThread = TRUE;
-  m_pDSB->Stop();
+	m_bStopSoundThread = TRUE;
+	m_pDSB->Stop();
 }
 
 void CVSS::RenderTrigger() {
-  SetEvent(m_syncEvent);
+	SetEvent(m_syncEvent);
 }
 
 HRESULT CVSS::CreateBasicBuffer(LPDIRECTSOUND8 lpDirectSound, LPDIRECTSOUNDBUFFER8* ppDsb8) { 
 
-  WAVEFORMATEX wfx; 
-  DSBUFFERDESC dsbdesc; 
-  LPDIRECTSOUNDBUFFER pDsb = NULL;
-  HRESULT hr; 
- 
-  // Set up WAV format structure. 
-  memset(&wfx, 0, sizeof(WAVEFORMATEX)); 
-  wfx.wFormatTag = WAVE_FORMAT_PCM; 
-  wfx.nChannels = 2; 
-  wfx.nSamplesPerSec = SAMPLERATE;
-  wfx.nBlockAlign = 4; 
-  wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign; 
-  wfx.wBitsPerSample = 16; 
- 
-  // Set up DSBUFFERDESC structure. 
-  memset(&dsbdesc, 0, sizeof(DSBUFFERDESC)); 
-  dsbdesc.dwSize = sizeof(DSBUFFERDESC); 
-  dsbdesc.dwFlags = DSBCAPS_GETCURRENTPOSITION2 | DSBCAPS_GLOBALFOCUS; 
-  dsbdesc.dwBufferBytes = MAINBUFLEN * wfx.nBlockAlign; 
-  dsbdesc.lpwfxFormat = &wfx; 
+	WAVEFORMATEX wfx; 
+	DSBUFFERDESC dsbdesc; 
+	LPDIRECTSOUNDBUFFER pDsb = NULL;
+	HRESULT hr; 
 
-  m_buffersize = dsbdesc.dwBufferBytes;
- 
-  // Create buffer. 
-  hr = lpDirectSound->CreateSoundBuffer(&dsbdesc, &pDsb, NULL); 
-  if (SUCCEEDED(hr)) { 
-     hr = pDsb->QueryInterface(IID_IDirectSoundBuffer8, (LPVOID*) ppDsb8);
-     pDsb->Release();
-  } 
-  return hr;
+	// Set up WAV format structure. 
+	memset(&wfx, 0, sizeof(WAVEFORMATEX)); 
+	wfx.wFormatTag = WAVE_FORMAT_PCM; 
+	wfx.nChannels = 2; 
+	wfx.nSamplesPerSec = SAMPLERATE;
+	wfx.nBlockAlign = 4; 
+	wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign; 
+	wfx.wBitsPerSample = 16; 
+
+	// Set up DSBUFFERDESC structure. 
+	memset(&dsbdesc, 0, sizeof(DSBUFFERDESC)); 
+	dsbdesc.dwSize = sizeof(DSBUFFERDESC); 
+	dsbdesc.dwFlags = DSBCAPS_GETCURRENTPOSITION2 | DSBCAPS_GLOBALFOCUS; 
+	dsbdesc.dwBufferBytes = MAINBUFLEN * wfx.nBlockAlign; 
+	dsbdesc.lpwfxFormat = &wfx; 
+
+	m_buffersize = dsbdesc.dwBufferBytes;
+
+	// Create buffer. 
+	hr = lpDirectSound->CreateSoundBuffer(&dsbdesc, &pDsb, NULL); 
+	if (SUCCEEDED(hr)) { 
+	 hr = pDsb->QueryInterface(IID_IDirectSoundBuffer8, (LPVOID*) ppDsb8);
+	 pDsb->Release();
+	} 
+	return hr;
 } 
 
 BOOL CVSS::WriteToBuffer( 
@@ -158,38 +159,27 @@ BOOL CVSS::WriteToBuffer(
     LPBYTE lpbSoundData,         // Start of our data.
     DWORD dwSoundBytes)          // Size of block to copy.
 { 
-  LPVOID  lpvPtr1; 
-  DWORD dwBytes1; 
-  LPVOID  lpvPtr2; 
-  DWORD dwBytes2; 
-  HRESULT hr; 
+	LPVOID  lpvPtr1; 
+	DWORD dwBytes1; 
+	LPVOID  lpvPtr2; 
+	DWORD dwBytes2; 
+	HRESULT hr; 
 
-  hr = lpDsb->Lock(dwOffset, dwSoundBytes, &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0); 
- 
-  if (SUCCEEDED(hr)) { 
- 
-    CopyMemory(lpvPtr1, lpbSoundData, dwBytes1); 
-    if (NULL != lpvPtr2) { 
-      CopyMemory(lpvPtr2, lpbSoundData+dwBytes1, dwBytes2); 
-    } 
- 
-    hr = lpDsb->Unlock(lpvPtr1, dwBytes1, lpvPtr2, dwBytes2); 
-    if (SUCCEEDED(hr)) { 
-      return TRUE; 
-    } 
-  } 
- 
-  return FALSE; 
+	hr = lpDsb->Lock(dwOffset, dwSoundBytes, &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0); 
+	if (SUCCEEDED(hr)) { 
+		CopyMemory(lpvPtr1, lpbSoundData, dwBytes1); 
+		if (NULL != lpvPtr2) { 
+			CopyMemory(lpvPtr2, lpbSoundData+dwBytes1, dwBytes2); 
+		} 
+		hr = lpDsb->Unlock(lpvPtr1, dwBytes1, lpvPtr2, dwBytes2); 
+		if (SUCCEEDED(hr)) { 
+			return TRUE; 
+		} 
+	} 
+
+	return FALSE; 
 } 
 
 CVSS::~CVSS() {
-  m_bStopSoundThread = TRUE;
-
-  while(m_bStopSoundThread) {   
-  }
-
-  SAFE_DELETE(p_Synth);
-  SAFE_RELEASE(m_pDSB);
-  SAFE_RELEASE(m_pDS);   
-  DeleteCriticalSection(&CSRenderThread);
+	m_bStopSoundThread = TRUE;
 }
