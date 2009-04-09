@@ -45,8 +45,10 @@ float perfWaveGuide::process(float in) {
 			#ifdef NORMALIZED_SCATTERING
 			// (normalized)
 			float a = delay1[getpos1(ss_pos[i])];
-			float d = delay2[getpos2(ss_pos[i])];		
-			float p = ss_k1[i]*(a-d);
+			float d = delay2[getpos2(ss_pos[i])];	
+
+			float p = ss_k1[i]*(a-d);			
+			
 			float b = a+p;
 			float c = p+d;
 			
@@ -109,7 +111,6 @@ void perfWaveGuide::setTubeFilt(int o, float c, float g) {
 	tube_o = o;
 	tube_g = g;
 }
-
 
 void perfWaveGuide::addNormalizedJunction(DWORD pos, int o, float c, float g) {
 	if (pos > 0) {

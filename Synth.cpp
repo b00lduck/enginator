@@ -37,8 +37,7 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 	while (length_samples > 0) {
 		float sound1 = 0;		
 		float sound2 = 0;
-	
-		myEngine->setThrottle(0);
+			
 		myEngine->move();	
 		myEngine->process();		
 			

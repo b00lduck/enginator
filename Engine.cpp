@@ -12,6 +12,7 @@ Engine::Engine() {
 	phase = 0;
 	ignition = true;
     throttle = 0;
+	rpm = 750;
 	int i;
 	for (i=0;i<MAXCYLS;i++) {
 		myCyls[i] = new Zylinder(0.07,0.08,7,0.15,0.04, 1, 1, this);					
@@ -78,16 +79,13 @@ void Engine::setIgnition(bool ignition) {
 
 void Engine::process() {
 
-	rpm = params->params[PARAM_ENG_RPM];
-	//throttle = params->params[PARAM_ENG_THROTTLE];
-	
 	for (int i=0;i<cyls;i++) {
 		
 		Zylinder *myZ = (Zylinder*) myCyls[i];
 		Ventil *myVout = (Ventil*) myOutVents[i];
 		Ventil *myVin = (Ventil*) myInVents[i];
 			
-		myVin->Qmax = ((throttle )* params->params[PARAM_ENG_IN_Q]);					
+		myVin->Qmax = (throttle * params->params[PARAM_ENG_IN_Q]);					
 		myVout->Qmax = (params->params[PARAM_ENG_OUT_Q]);
 		myVout->sharpness = params->params[PARAM_ENG_OUT_SH];
 		myVin->sharpness = params->params[PARAM_ENG_IN_SH];
@@ -95,11 +93,9 @@ void Engine::process() {
 		exhaust[i] = myZ->setdPout(myVout->K);
 		intake[i]  = myZ->setdPin(myVin->K);
 
-		exhaust[i] = (exhaust[i]*exhaust_noise->tick()*_P(PARAM_ENG_NOISE))
-	  	         + (exhaust[i]*(1-_P(PARAM_ENG_NOISE)));
-
-  		intake[i] = (intake[i]*intake_noise->tick()*_P(PARAM_ENG_NOISE))
-		          + (intake[i]*(1-_P(PARAM_ENG_NOISE)));
+		exhaust[i] = (exhaust[i]*exhaust_noise->tick()*_P(PARAM_ENG_NOISE)) + (exhaust[i]);
+  		intake[i] = (intake[i]*intake_noise->tick()*_P(PARAM_ENG_NOISE)) + (intake[i]);
   }
+
 }
 

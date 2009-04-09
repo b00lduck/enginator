@@ -36,6 +36,8 @@ void CVSS::setIgnition(bool ignition) {
 
 DWORD CVSS::RenderThread() {
 
+  renderThreadIsDone = false;
+
   float* pDataL = NULL;
   float* pDataR = NULL;
   LPBYTE	pFinalBuf = NULL;
@@ -67,12 +69,8 @@ DWORD CVSS::RenderThread() {
 	  LeaveCriticalSection(&CSRenderThread);
 	  WaitForSingleObject(m_syncEvent,RENDERSLEEP);
 	}
-	
-  	SAFE_DELETE(p_Synth);
-	SAFE_RELEASE(m_pDSB);
-	SAFE_RELEASE(m_pDS);   
-	DeleteCriticalSection(&CSRenderThread);
 
+	renderThreadIsDone = true;
 	return 0;
 }
 
@@ -194,7 +192,15 @@ BOOL CVSS::WriteToBuffer(
 } 
 
 CVSS::~CVSS() {
-	m_bStopSoundThread = TRUE;
+
+	while (!renderThreadIsDone) {
+		m_bStopSoundThread = TRUE;
+	}
+
+  	SAFE_DELETE(p_Synth);
+	SAFE_RELEASE(m_pDSB);
+	SAFE_RELEASE(m_pDS);   
+	DeleteCriticalSection(&CSRenderThread);
 }
 
 

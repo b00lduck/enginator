@@ -15,7 +15,7 @@ void Params::addParam(char* name,float value,float delta,float down, float up) {
 	this->pct[numparams] = (value-down) / (up-down); 
 	this->dragmode[numparams] = false;
 	numparams++;
-}
+} 
 
 void Params::load(char *filename) {  
   FILE *fh = fopen(filename,"r");

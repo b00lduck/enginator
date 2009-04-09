@@ -8,7 +8,7 @@ Exhaust::Exhaust() {
 }
 
 Exhaust::~Exhaust() {
-  params->save("exhaust.params");
+	params->save("exhaust.params");
 	SAFE_DELETE(params);
 	SAFE_DELETE(myWaveguide);
 }

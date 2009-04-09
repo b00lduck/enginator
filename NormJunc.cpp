@@ -7,9 +7,7 @@ NormJunc::NormJunc(float k1) : ChainElement() {
 
 NormJunc::~NormJunc() {}
 
-void NormJunc::setup() {
-	//Chain* pc = (Chain*) parent;
-}
+void NormJunc::setup() {}
 
 void NormJunc::transform() {
 	b = a * (1+k1) - d * k1;

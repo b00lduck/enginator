@@ -13,6 +13,11 @@ char text[500];
 HFONT smFont = NULL;
 bool clicked = true;
 
+float throttle = 0;
+float rpm = 750;
+bool ignition = true;
+
+
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow ) {
 	MSG msg;
 	MyRegisterClass(hInstance);
@@ -74,13 +79,49 @@ void PaintText(HDC hdc) {
 	rt.top = 400;
 
 	if (myVSS) {
-	//	sprintf(text,"rpm: %.0f                   ",myVSS->p_Synth->myEngine->rpm);
-	//	DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"rpm: %.0f                   ",rpm);
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 	//	sprintf(text,"gain: %.2f                   ",myVSS->p_Synth->myLimiter->gain);  
 	//	DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 	//	sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
 	//	DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 	}		
+}
+
+
+void calcRPM() {
+
+	float friction = 0.01;
+	float torque = 0.03;
+	float mass = 2;
+	float maxTorque = 4000;
+
+	if (rpm > 7200) { 
+		torque = 0;
+		ignition = false;
+	} else {
+		ignition = true;	
+	}
+
+	float energy = rpm * mass;
+
+	// friction
+	energy -= friction * rpm;
+
+	// power from engine
+	if (rpm < maxTorque) {
+		energy += torque * throttle * rpm;
+	} else {
+		energy += torque * throttle * (maxTorque*2 - rpm);	
+	}
+
+	if (energy < 0) energy = 0;
+
+	rpm = energy / mass;
+
+	if (rpm < 750) rpm = 750;
+
+
 }
 
 
@@ -94,17 +135,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
   	  case WM_TIMER:
 			InvalidateRect(hWnd,NULL,FALSE);
 			UpdateWindow(hWnd);
+
+			calcRPM();
+
+			myVSS->setThrottle(throttle);
+			myVSS->setRPM(rpm);
+			myVSS->setIgnition(ignition);
+
+
+
 			myVSS->RenderTrigger();		
 			break;	
 
 	  case WM_KEYDOWN:
-		  if (wParam == VK_SPACE) 
-              myVSS->setThrottle(1.0f);
+		  if (wParam == VK_SPACE)               
+			  throttle = 1;
 		  break;
 
 	  case WM_KEYUP:
 		  if (wParam == VK_SPACE) 
-			  myVSS->setThrottle(0.0f);
+			  throttle = 0;
 		  break;
 
 	  case WM_LBUTTONUP:

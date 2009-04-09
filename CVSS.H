@@ -34,6 +34,8 @@ class CVSS {
 
 		DWORD	m_eventcount;
 
+		bool renderThreadIsDone;
+
 	public:
 
 		long	m_samples_rendered;

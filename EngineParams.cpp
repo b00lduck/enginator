@@ -9,8 +9,6 @@ EngineParams::EngineParams(Engine* p) : Params(){
 	addParam("Einlass Q",		  0.1,  0.01,    0,     1);
 	addParam("Motortyp",		    1,     1,    0,    3); 
 	addParam("Noisefac",          0.5,   0.1,    0,     1);
-	addParam("RPM",           4000, 100, 250, 10000);
-	addParam("Gas",    0, 0.01, 0, 1);
 }
 
 void EngineParams::callbackSet(int p) {

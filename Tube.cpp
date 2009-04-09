@@ -26,9 +26,7 @@ void Tube::setLen(float len) {
 	delay->setLen(len);
 }
 
-
 void Tube::setup() {}
-
 
 void Tube::transform()  {
 
