@@ -11,7 +11,7 @@ Engine::Engine() {
 	params->load("engine.params");
 	phase = 0;
 	ignition = true;
-
+    throttle = 0;
 	int i;
 	for (i=0;i<MAXCYLS;i++) {
 		myCyls[i] = new Zylinder(0.07,0.08,7,0.15,0.04, 1, 1, this);					
@@ -79,7 +79,7 @@ void Engine::setIgnition(bool ignition) {
 void Engine::process() {
 
 	rpm = params->params[PARAM_ENG_RPM];
-	throttle = params->params[PARAM_ENG_THROTTLE];
+	//throttle = params->params[PARAM_ENG_THROTTLE];
 	
 	for (int i=0;i<cyls;i++) {
 		

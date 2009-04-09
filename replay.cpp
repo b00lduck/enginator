@@ -97,6 +97,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			myVSS->RenderTrigger();		
 			break;	
 
+	  case WM_KEYDOWN:
+		  if (wParam == VK_SPACE) 
+              myVSS->setThrottle(1.0f);
+		  break;
+
+	  case WM_KEYUP:
+		  if (wParam == VK_SPACE) 
+			  myVSS->setThrottle(0.0f);
+		  break;
+
 	  case WM_LBUTTONUP:
 			myVSS->p_Synth->myEngine->params->unClick();			
 			myVSS->p_Synth->myExhaust1->params->unClick();
@@ -157,7 +167,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			break;
 
 		case WM_DESTROY:
-      SAFE_DELETE(myVSS);
+			SAFE_DELETE(myVSS);
 			PostQuitMessage( 0 );
 			break;
 

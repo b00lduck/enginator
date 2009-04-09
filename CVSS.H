@@ -13,14 +13,18 @@ class CVSS {
 		void Stop();
 		void RenderTrigger();
 
+		void setThrottle(float throttle);
+		void setRPM(float rpm);
+		void setIgnition(bool ignition);
+
 		DWORD RenderThread();
 
-		BOOL	WriteToBuffer(LPDIRECTSOUNDBUFFER8 lpDsb, DWORD dwOffset, LPBYTE lpbSoundData, DWORD dwSoundBytes);
+		BOOL WriteToBuffer(LPDIRECTSOUNDBUFFER8 lpDsb, DWORD dwOffset, LPBYTE lpbSoundData, DWORD dwSoundBytes);
 
 		HANDLE	m_syncEvent;
 		HANDLE	m_hRenderThread; 
 
-	protected:
+	private:
 		HRESULT	CreateBasicBuffer(LPDIRECTSOUND8 lpDirectSound, LPDIRECTSOUNDBUFFER8* ppDsb8);
 
 		HWND	m_hWnd;
@@ -38,9 +42,7 @@ class CVSS {
 
 		DWORD	m_bufplaypos;
 		DWORD	m_lastbufplaypos;
-
 		DWORD	m_buffersize;
-
 		BOOL	m_bStopSoundThread;
 		BOOL	m_playing;
 

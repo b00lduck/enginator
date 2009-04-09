@@ -21,10 +21,18 @@ CVSS::CVSS() {
 	p_Synth = new Synth();
 }
 
-DWORD WINAPI _renderThread(void* dummy) {
-	UNREFERENCED_PARAMETER(dummy);
-	return MYVSS->RenderThread();
+void CVSS::setThrottle(float throttle) {
+	p_Synth->setThrottle(throttle);
 }
+
+void CVSS::setRPM(float rpm) {
+	p_Synth->setRPM(rpm);
+}
+
+void CVSS::setIgnition(bool ignition) {
+	p_Synth->setIgnition(ignition);
+}
+
 
 DWORD CVSS::RenderThread() {
 
@@ -88,6 +96,11 @@ HRESULT CVSS::Init( HWND hWnd ) {
 	InitializeCriticalSection(&CSRenderThread);
 
 	return S_OK; 
+}
+
+DWORD WINAPI _renderThread(void* dummy) {
+	UNREFERENCED_PARAMETER(dummy);
+	return MYVSS->RenderThread();
 }
 
 void CVSS::Play() {
@@ -183,3 +196,5 @@ BOOL CVSS::WriteToBuffer(
 CVSS::~CVSS() {
 	m_bStopSoundThread = TRUE;
 }
+
+
