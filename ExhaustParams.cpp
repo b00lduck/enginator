@@ -13,7 +13,7 @@ ExhaustParams::ExhaustParams(Exhaust* p) : Params(){
 	addParam("Stoﬂstelle 3 k1",0,0.05,-1,1); 
 	addParam("Stoﬂstelle 4 k1",0,0.05,-1,1); 
 	addParam("Tube Length",SUMLENGTH,10,5,SUMLENGTH); 
-	addParam("Tube Gain",1,0.1,0,0.95); 
+	addParam("Tube Gain",1,0.1,0,1); 
 	addParam("Tube Cutoff",0.5,0.05,0,0.95); 
 	addParam("Tube Order",1,1,1,20);
 	addParam("Endref Gain",0.0,0.1,-0.95,0); 

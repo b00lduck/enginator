@@ -91,10 +91,10 @@ void PaintText(HDC hdc) {
 
 void calcRPM() {
 
-	float friction = 0.01;
-	float torque = 0.03;
-	float mass = 2;
-	float maxTorque = 4000;
+	float friction = 100;
+	float torque = 350;
+	float mass = 1;
+	float maxTorque = 5500;
 
 	if (rpm > 7200) { 
 		torque = 0;
@@ -103,7 +103,7 @@ void calcRPM() {
 		ignition = true;	
 	}
 
-	float energy = rpm * mass;
+	float energy = (rpm*rpm) * mass;
 
 	// friction
 	energy -= friction * rpm;
@@ -117,10 +117,9 @@ void calcRPM() {
 
 	if (energy < 0) energy = 0;
 
-	rpm = energy / mass;
+	rpm = sqrt(energy) / mass;
 
 	if (rpm < 750) rpm = 750;
-
 
 }
 
@@ -142,8 +141,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			myVSS->setRPM(rpm);
 			myVSS->setIgnition(ignition);
 
-
-
 			myVSS->RenderTrigger();		
 			break;	
 
@@ -154,7 +151,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
 	  case WM_KEYUP:
 		  if (wParam == VK_SPACE) 
-			  throttle = 0;
+			  throttle = 0.1;
 		  break;
 
 	  case WM_LBUTTONUP:
