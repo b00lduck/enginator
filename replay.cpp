@@ -91,10 +91,10 @@ void PaintText(HDC hdc) {
 
 void calcRPM() {
 
-	float friction = 100;
-	float torque = 350;
-	float mass = 1;
-	float maxTorque = 5500;
+	float friction = 0.1;
+	float torque = 300 ;
+	float mass = 1.1;
+	float maxTorque = 6000;
 
 	if (rpm > 7200) { 
 		torque = 0;
