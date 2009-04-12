@@ -88,6 +88,7 @@ void PaintText(HDC hdc) {
 	}		
 }
 
+int limiter = 0;
 
 void calcRPM() {
 
@@ -96,11 +97,15 @@ void calcRPM() {
 	float mass = 1.1;
 	float maxTorque = 6000;
 
-	if (rpm > 7200) { 
+	if (rpm > 7200) {
+		limiter = 3  ;
+	}
+	if (limiter >0) {
 		torque = 0;
 		ignition = false;
+		limiter--;
 	} else {
-		ignition = true;	
+		ignition = true;
 	}
 
 	float energy = (rpm*rpm) * mass;
