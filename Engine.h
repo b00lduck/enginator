@@ -1,6 +1,7 @@
 #pragma once
 #include "vss_stdinc.h"
-#include "EnginePart.h"
+#include "Zylinder.h"
+#include "Ventil.h"
 #include "EngineSettings.h"
 #include "Noise.h"
 #include "LPFilt.h"
@@ -54,10 +55,10 @@ class Engine {
 	private:
 
 		float throttle;
-
-		EnginePart *myCyls[MAXCYLS];
-		EnginePart *myOutVents[MAXVENTS];
-		EnginePart *myInVents[MAXVENTS];
+public:
+		Zylinder *myCyls[MAXCYLS];
+		Ventil *myOutVents[MAXVENTS];
+		Ventil *myInVents[MAXVENTS];
 
 		int is_v,type;
 

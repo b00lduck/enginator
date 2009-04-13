@@ -11,7 +11,7 @@ EnginePart::~EnginePart() {}
 void EnginePart::move(float dp) {
 	this->phase += dp;
 	process(dp);
-	FLIP_4PI(phase);
+	if (phase >= FOUR_PI) phase -= FOUR_PI;
 }
 
 void EnginePart::setOffset(float of) {

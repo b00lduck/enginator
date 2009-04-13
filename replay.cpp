@@ -81,10 +81,20 @@ void PaintText(HDC hdc) {
 	if (myVSS) {
 		sprintf(text,"rpm: %.0f                   ",rpm);
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-	//	sprintf(text,"gain: %.2f                   ",myVSS->p_Synth->myLimiter->gain);  
-	//	DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-	//	sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
-	//	DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->K);  
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myOutVents[0]->K);  
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"press: %.2f                   ",myVSS->p_Synth->myEngine->myCyls[0]->P);  
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"phaseC: %.2f                   ",myVSS->p_Synth->myEngine->myCyls[0]->phase);  
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"phaseV: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->K);  
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"phaseV: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->LTIe);  
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 	}		
 }
 
@@ -94,12 +104,12 @@ float idle_throttle = 0;
 void calcRPM() {
 
 	float friction = 50  ;
-	float torque = 300 ;
-	float mass = 2;
-	float maxTorque = 4000;
+	float torque = 200 ;
+	float mass = 0.5;
+	float maxTorque = 5000;
 
 	if (rpm > 7200) {
-		limiter = 3  ;
+		limiter = 4  ;
 	}
 	if (limiter >0) {
 		torque = 0;
@@ -130,6 +140,8 @@ void calcRPM() {
 	} else {
 		if (idle_throttle > 0.01) idle_throttle -= 0.01;
 	}
+
+	//rpm = 500;
 
 }
 

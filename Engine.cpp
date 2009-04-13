@@ -17,7 +17,7 @@ Engine::Engine() {
 	int i;
 	for (i=0;i<MAXCYLS;i++) {
 		myCyls[i] = new Zylinder(0.07,0.08,7,0.15,0.04, 1, 1, this);					
-		myOutVents[i] = new Ventil(540,719,_P(PARAM_ENG_OUT_SH),_P(PARAM_ENG_OUT_Q),this);
+		myOutVents[i] = new Ventil(390,719,_P(PARAM_ENG_OUT_SH),_P(PARAM_ENG_OUT_Q),this);
 		myInVents[i] =  new Ventil(0,180,_P(PARAM_ENG_IN_SH),_P(PARAM_ENG_IN_Q),this);
 	}
 	
@@ -51,11 +51,11 @@ void Engine::setCyls(int cyls) {
 		myCyls[i]->setOffset(offset);			
 		myOutVents[i]->setOffset(offset);
 		myInVents[i]->setOffset(offset);
-	 }						 
+	 }	
 }
 
 float Engine::move() {
-	float dp = rpm * PI * 2 / (SAMPLERATE * 60.0f);
+	float dp = rpm * PI * 2.0f / (SAMPLERATE * 60.0f);
 	phase += dp;
 	if (phase >= PI4) phase -= PI4;	
 	for (int i=0;i<cyls;i++) {		
@@ -86,23 +86,18 @@ void Engine::process() {
 
 	float filteredThrottle = throttleFilter->tick(throttle);
 	if (filteredThrottle < 0.01) filteredThrottle = 0;
+	filteredThrottle = throttle;
 
 	for (int i=0;i<cyls;i++) {
-		
-		Zylinder *myZ = (Zylinder*) myCyls[i];
-		Ventil *myVout = (Ventil*) myOutVents[i];
-		Ventil *myVin = (Ventil*) myInVents[i];
-			
-		myVin->Qmax = (filteredThrottle * _P(PARAM_ENG_IN_Q));					
-		myVout->Qmax = (_P(PARAM_ENG_OUT_Q));
-		myVout->sharpness = _P(PARAM_ENG_OUT_SH);
-		myVin->sharpness = _P(PARAM_ENG_IN_SH);
+					
+		myInVents[i]->setQmax(filteredThrottle * _P(PARAM_ENG_IN_Q));					
+		myOutVents[i]->setQmax(_P(PARAM_ENG_OUT_Q));
 
-		exhaust[i] = myZ->setdPout(myVout->K);
-		intake[i]  = myZ->setdPin(myVin->K);
+		exhaust[i] = myCyls[i]->setdP(myOutVents[i]->K);
+		intake[i]  = myCyls[i]->setdP(myInVents[i]->K);
 
-		exhaust[i] = (exhaust[i]*exhaust_noise->tick()*_P(PARAM_ENG_NOISE)) + (exhaust[i]);
-  		intake[i] = (intake[i]*intake_noise->tick()*_P(PARAM_ENG_NOISE)) + (intake[i]);
+		exhaust[i] = (exhaust[i]*exhaust_noise->tick()*_P(PARAM_ENG_NOISE)) + (1-_P(PARAM_ENG_NOISE)) * (exhaust[i]);
+  		intake[i] = (intake[i]*intake_noise->tick()*_P(PARAM_ENG_NOISE)) + (1-_P(PARAM_ENG_NOISE)) * (intake[i]);
 	}
 
 }

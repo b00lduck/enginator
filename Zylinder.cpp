@@ -11,68 +11,47 @@ Zylinder::Zylinder(float hub, float bohrung, float verdichtung,float pleuel_l,fl
 	this->desachs = desachs;
 
 	V = 0;				// volumen / m³
-	P = 0;				// Zylinderinnendruck / kpa
+	P = UMGEBUNGSDRUCK;	// Zylinderinnendruck / kpa
 	x = 0;				// Kolbenposition / m
 	verdichtung = 7;	// verdichtung 1 zu 7
 	gasmenge = 0;		// Gasmenge / kg
 	T = 300.0f;			// t / Kelvin
-	Cin = 100;			// Gegendruck / kpa
-	Cout = 100;			// Gegendruck / kpa	
-
-	Pold = 0;
-
 	kolbflaeche = bohrung*bohrung*PI/4.0f;
-
 	burntime = 0;
-
 	ignition = true;
+}
 
+float Zylinder::setdP(float dp) {
+	float Pdiff = P - UMGEBUNGSDRUCK;
+	float dp1 = 0;
+	if (Pdiff > 0) {
+		dp1 = sqrt(Pdiff) * dp;
+	} else {
+		dp1 = -sqrt(-Pdiff) * dp;
+	}
+	setP(P-dp1);
+	return dp1;
 }
 
 void Zylinder::setP(float newp) {
 	P = newp;
-	gasmenge = V * P /( T * 287.0f);
-}
-
-float Zylinder::setdPin(float dp) {
-	float t = P-Cin;
-	float dp1 = 0;
-	if (t>0) dp1 = sqrt(t) * dp;
-	else dp1 = -sqrt(-t) * dp;
-	P -= dp1;
-	gasmenge = V * P /( T * 287.0f);
-	return dp1;
-}
-
-float Zylinder::setdPout(float dp) {
-	float t = P-Cout;
-	float dp1 = 0;
-	if (t>0) dp1 = sqrt(t) * dp;
-	else dp1 = -sqrt(-t) * dp;
-	P -= dp1;
-	gasmenge = V * P /( T * 287.0f);
-	  if ((phase > 6) && (phase <= 6.3)) {
-		return dp1 * 5.0;
-	  } else {
-		return dp1;
-	  }
+	gasmenge = (V * P) /( T * GASKONSTANTE);
 }
 
 void Zylinder::setV(float newV) {
 	V = newV;
-	P = (gasmenge / V) * (T * 287.0f);
+	P = gasmenge * T * GASKONSTANTE / V;
 }
 
 void Zylinder::setT(float newT) {
 	T = newT;
-	P = (gasmenge / V) * (T * 287.0f);
+	P = gasmenge * T * GASKONSTANTE / V;
 }
-
-
+ 
 void Zylinder::process(float dp) {
 
 	#define ign_start	(PI2)			
-	#define ign_stop	(PI2+0.1)			
+	#define ign_stop	(PI2+0.5)			
 	
 	float tmp = ( (sin(phase) * hub / (2.0f*pleuel_l)) - desachs / pleuel_l);
 	x = (hub / 2.0f) * (1.0f - cos(phase)) + pleuel_l * ( 1.0f - sqrt(1-(tmp*tmp)));
@@ -80,31 +59,17 @@ void Zylinder::process(float dp) {
 	setV(V);
 
 	// Zündung !
-	if (parent->ignition) {
-		if (burntime == 0) {
+	if (ignition) {
+		//if (burntime == 0) {
 			if ((phase > ign_start) && (phase <= ign_stop)) {				
-				
-				setT(287+1500);
-/*
-				if ((parent->getThrottle() < 0.4)) {
-					int r=rand();
-					if (r < (1300 / parent->cyls)) setT(287);
-					if ((parent->getThrottle() < 0.05) &&
-						//(parent->rpm > (limiter * 0.25)) && 
-						//(parent->rpm < (limiter * 0.75)) &&
-						(r < (800 / parent->cyls))) setT(287+90*r);					
-			}
-*/			
-			}
-		} else {
-			burntime--;
-		}
+				setT(300+2500);	
+		//		burntime = 5000;
+		      	}
+		//} else {
+		//	burntime--;
+		//}
 	}
 	// Auspuffen
-	if ((phase > 0) && (phase <= 0.01)) setT(287);
+	if ((phase > 0) && (phase <= 0.05)) setT(300);
 
-	Pold = P;
 }
-
-
-

@@ -35,8 +35,8 @@ void Tube::transform()  {
 	n = delay->delay1->read();
 	m = delay->delay2->read();
 
-	n += noise1->tick() * n * noisefac;
-	m += noise2->tick() * m * noisefac;
+	//n += noise1->tick() * n * noisefac;
+	//m += noise2->tick() * m * noisefac;
 
 	b = filt1->tick(n);
 	c = filt2->tick(m);

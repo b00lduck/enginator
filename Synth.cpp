@@ -13,8 +13,8 @@ Synth::Synth() {
 
   myHPL = new IIR();
   myHPR = new IIR();
-  myHPL->setLowpass(1,0.01,1);
-  myHPR->setLowpass(1,0.01,1);
+  myHPL->setLowpass(1,0.1,1);
+  myHPR->setLowpass(1,0.1,1);
   //Limiter: float thresh,float slope,float tla,float twnd,float tatt,float trel
   myLimiter = new Limiter(0.9,0.01,5);
 
@@ -41,7 +41,7 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 		myEngine->move();	
 		myEngine->process();		
 			
-		int banks[8] = { 0, 1, 1, 1, 0, 1, 0, 0 };
+		int banks[8] = { 0, 1, 1, 1 , 0, 1, 0, 0 };
 		
 		float engineout1 = 0;
 		float engineout2 = 0;
@@ -69,11 +69,11 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 		sound1 = myExhaust1->lastOutL;
 		//sound1 = myExhaust2->lastOutL * 0.75;
 		
-		sound2 += myIntake->lastOutL;
+		sound2 = myIntake->lastOutL;
 		//sound2 += myIntake->lastOutR;
 
-		left = sound1;
-		right = sound2;
+		left = sound1 + sound2;
+		right = left        ;
 
     // DC offset and speaker protection
 		left = myHPL->tickHP(left);

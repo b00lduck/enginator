@@ -20,13 +20,13 @@ class Synth {
 		void setThrottle(float throttle);
 		void setRPM(float rpm);
 		void setIgnition(bool ignition);
+		Limiter *myLimiter;
 
 	private:
 
 		float left,right;
 		IIR *myHPL;
 		IIR *myHPR;
-		Limiter *myLimiter;
 
 };
 
