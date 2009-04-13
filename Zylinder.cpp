@@ -85,23 +85,23 @@ void Zylinder::process(float dp) {
 			if ((phase > ign_start) && (phase <= ign_stop)) {				
 				
 				setT(287+1500);
-
-				if ((parent->throttle < 0.4)) {
+/*
+				if ((parent->getThrottle() < 0.4)) {
 					int r=rand();
 					if (r < (1300 / parent->cyls)) setT(287);
-					if ((parent->throttle < 0.05) &&
+					if ((parent->getThrottle() < 0.05) &&
 						//(parent->rpm > (limiter * 0.25)) && 
 						//(parent->rpm < (limiter * 0.75)) &&
 						(r < (800 / parent->cyls))) setT(287+90*r);					
-				}
-		
+			}
+*/			
 			}
 		} else {
 			burntime--;
 		}
 	}
 	// Auspuffen
-	if ((phase > 0) && (phase <= 0.1)) setT(287);
+	if ((phase > 0) && (phase <= 0.01)) setT(287);
 
 	Pold = P;
 }

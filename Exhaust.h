@@ -1,6 +1,6 @@
 #pragma once
 #include "vss_stdinc.h"
-#include "ExhaustParams.h"
+#include "ExhaustSettings.h"
 #include "perfWaveGuide.h"
 #include "Resonator.h"
 #include "Noise.h"
@@ -40,7 +40,7 @@ class Exhaust {
 
 		float supercharge;
 
-		ExhaustParams *params;
+		ExhaustSettings *params;
 		perfWaveGuide *myWaveguide;
 
 	private:

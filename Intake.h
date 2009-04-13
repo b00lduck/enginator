@@ -1,6 +1,6 @@
 #pragma once
 #include "vss_stdinc.h"
-#include "IntakeParams.h"
+#include "IntakeSettings.h"
 #include "perfWaveGuide.h"
 
 enum { PARAM_INT_SS1=0,			
@@ -31,7 +31,7 @@ class Intake {
 
 		SIGNAL lastOutL,lastOutR;
 
-		IntakeParams *params;
+		IntakeSettings *params;
 		perfWaveGuide *myWaveguide;
 	
 	private:

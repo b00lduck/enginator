@@ -142,7 +142,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				InlineFunctionExpansion="1"
+				InlineFunctionExpansion="0"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -561,19 +561,23 @@
 				Name="Settings"
 				>
 				<File
-					RelativePath=".\EngineParams.cpp"
+					RelativePath=".\EngineSettings.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\ExhaustParams.cpp"
+					RelativePath=".\ExhaustSettings.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\IntakeParams.cpp"
+					RelativePath=".\IntakeSettings.cpp"
 					>
 				</File>
 				<File
-					RelativePath="Params.cpp"
+					RelativePath=".\Parameter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Settings.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -711,11 +715,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\EngineParams.h"
+				RelativePath=".\EnginePart.h"
 				>
 			</File>
 			<File
-				RelativePath=".\EnginePart.h"
+				RelativePath=".\EngineSettings.h"
 				>
 			</File>
 			<File
@@ -723,7 +727,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ExhaustParams.h"
+				RelativePath=".\ExhaustSettings.h"
 				>
 			</File>
 			<File
@@ -759,7 +763,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\IntakeParams.h"
+				RelativePath=".\IntakeSettings.h"
 				>
 			</File>
 			<File
@@ -787,7 +791,7 @@
 				>
 			</File>
 			<File
-				RelativePath="Params.h"
+				RelativePath=".\Parameter.h"
 				>
 			</File>
 			<File
@@ -800,6 +804,10 @@
 			</File>
 			<File
 				RelativePath=".\Resonator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Settings.h"
 				>
 			</File>
 			<File

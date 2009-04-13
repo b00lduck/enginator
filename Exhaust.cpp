@@ -1,7 +1,7 @@
 #include "Exhaust.h"
 
 Exhaust::Exhaust() {
-    this->params = new ExhaustParams(this);	
+    this->params = new ExhaustSettings(this);	
     params->load("exhaust.params");
     exnoise1 = new Noise();
     myWaveguide = NULL;

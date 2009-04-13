@@ -1,8 +1,9 @@
 #pragma once
 #include "vss_stdinc.h"
 #include "EnginePart.h"
-#include "EngineParams.h"
+#include "EngineSettings.h"
 #include "Noise.h"
+#include "LPFilt.h"
 
 #define MAXCYLS		 12
 #define MAXVENTS	 (MAXCYLS*2)
@@ -44,12 +45,15 @@ class Engine {
 		float phase;
 		int cyls;
 
-		EngineParams *params;
+		EngineSettings *params;
 
 		bool ignition;
-		float throttle;
+		
+		float getThrottle();
 
 	private:
+
+		float throttle;
 
 		EnginePart *myCyls[MAXCYLS];
 		EnginePart *myOutVents[MAXVENTS];
@@ -62,5 +66,6 @@ class Engine {
 		Noise* exhaust_noise;
 		Noise* intake_noise;
 
+		LPFilt* throttleFilter;
 
 };

@@ -1,7 +1,7 @@
 #include "Intake.h"
 
 Intake::Intake() {
-	this->params = new IntakeParams(this);
+	this->params = new IntakeSettings(this);
 	params->load("intake.params");
 	myWaveguide = NULL;
 }

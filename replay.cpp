@@ -89,13 +89,14 @@ void PaintText(HDC hdc) {
 }
 
 int limiter = 0;
+float idle_throttle = 0;
 
 void calcRPM() {
 
-	float friction = 0.1;
+	float friction = 50  ;
 	float torque = 300 ;
-	float mass = 1.1;
-	float maxTorque = 6000;
+	float mass = 2;
+	float maxTorque = 4000;
 
 	if (rpm > 7200) {
 		limiter = 3  ;
@@ -115,16 +116,20 @@ void calcRPM() {
 
 	// power from engine
 	if (rpm < maxTorque) {
-		energy += torque * throttle * rpm;
+		energy += torque * (throttle + idle_throttle) * rpm;
 	} else {
-		energy += torque * throttle * (maxTorque*2 - rpm);	
+		energy += torque * (throttle + idle_throttle) * (maxTorque*2 - rpm);	
 	}
 
 	if (energy < 0) energy = 0;
 
-	rpm = sqrt(energy) / mass;
+	rpm = sqrt(energy / mass);
 
-	if (rpm < 750) rpm = 750;
+	if (rpm < 750) { 
+		idle_throttle += 0.04;
+	} else {
+		if (idle_throttle > 0.01) idle_throttle -= 0.01;
+	}
 
 }
 
@@ -156,7 +161,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
 	  case WM_KEYUP:
 		  if (wParam == VK_SPACE) 
-			  throttle = 0.1;
+			  throttle = 0;
 		  break;
 
 	  case WM_LBUTTONUP:

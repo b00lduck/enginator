@@ -87,7 +87,6 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 	}
 }
 
-
 void Synth::setRPM(float rpm) {
 	myEngine->setRPM(rpm);
 }
@@ -99,17 +98,3 @@ void Synth::setThrottle(float throttle) {
 void Synth::setIgnition(bool ignition) {
 	myEngine->setIgnition(ignition);
 }
-
-
-/*
-float Synth::getTiming(float start, float end, float ph) {
-
-	if (end < start) {
-		if (ph < end) return (4*PI-start+ph)/(end+4*PI-start);
-		if (ph > start) return (ph-start)-(end+4*PI-start);
-	} else {
-		if ((ph > start) && (ph < end)) return (ph-start)/(end-start);
-	}
-
-	return 0;
-}*/

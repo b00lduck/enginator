@@ -36,7 +36,8 @@
 #define DEG(x) (x/PI_180)
 
 // Parameter
-#define _P(x) params->params[x]
+#define _P(x) params->parameter[x]->value
+
 
 #define SIGNAL float
 

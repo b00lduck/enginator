@@ -44,7 +44,7 @@ void Ventil::process(float dp) {
 	if (close_ph < PI4) {
 		if ((phase > open_ph) && (phase <= close_ph)) {
 			pos = ((phase - open_ph) / duration);
-			K=getFlow(pos);
+			K = getFlow(pos);
 		} else K=0;
 	} else {
 		if (phase > open_ph) {
@@ -52,7 +52,7 @@ void Ventil::process(float dp) {
 			K=getFlow(pos);
 		} else if (phase+PI4 <= close_ph) {
 			pos = 1-((close_ph - (phase+PI4)) / duration);
-			K=getFlow(pos);			
+			K = getFlow(pos);			
 		} else K=0;
 	}
 }

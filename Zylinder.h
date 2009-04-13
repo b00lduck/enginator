@@ -34,7 +34,6 @@ class Zylinder : public EnginePart {
 
 	int burntime;
 
-
 };
 
 
