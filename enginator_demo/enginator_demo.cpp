@@ -21,7 +21,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 }
 
 ATOM MyRegisterClass( HINSTANCE hInstance ) {
-
+ 
 	WNDCLASSEX wcex;
 	wcex.cbSize = sizeof(WNDCLASSEX);
 	wcex.style			= CS_HREDRAW | CS_VREDRAW;
