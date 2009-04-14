@@ -172,162 +172,182 @@
 		<Filter
 			Name="Header-Dateien"
 			>
-			<File
-				RelativePath="..\trunk\CFilter.h"
+			<Filter
+				Name="Application"
 				>
-			</File>
-			<File
-				RelativePath="..\trunk\CFX.H"
+				<File
+					RelativePath=".\src\Application\CVSS.H"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Application\static_inline.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Application\Synth.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Application\typedef.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Application\vss_stdinc.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="DSP"
 				>
-			</File>
-			<File
-				RelativePath="..\trunk\Chain.h"
+				<File
+					RelativePath=".\src\DSP\CFilter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\CFX.H"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\Filt.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\FIR.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\HPFilt.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\IIR.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\Limiter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\LPFilt.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\Noise.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\NRev.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\PCRev.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\Resonator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DSP\stk.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Engine"
 				>
-			</File>
-			<File
-				RelativePath="..\trunk\ChainElement.h"
+				<File
+					RelativePath=".\src\Engine\Engine.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Engine\EnginePart.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Engine\Exhaust.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Engine\Intake.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Engine\Ventil.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Engine\Zylinder.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Settings"
 				>
-			</File>
-			<File
-				RelativePath="..\trunk\CVSS.H"
+				<File
+					RelativePath=".\src\Settings\EngineSettings.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Settings\ExhaustSettings.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Settings\IntakeSettings.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Settings\Parameter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Settings\Settings.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Waveguide"
 				>
-			</File>
-			<File
-				RelativePath="..\trunk\DelayLine.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Engine.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\EnginePart.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\EngineSettings.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Exhaust.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\ExhaustSettings.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\FBDown.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\FBUp.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Filt.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\FIR.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\floatDelayLine.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\HPFilt.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\IIR.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Intake.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\IntakeSettings.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Limiter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\lossyDelay.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\LPFilt.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Noise.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\NormJunc.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\NRev.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Parameter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\PCRev.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\perfWaveGuide.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Resonator.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Settings.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\static_inline.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\stk.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Synth.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Tube.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\typedef.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Ventil.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\vss_stdinc.h"
-				>
-			</File>
-			<File
-				RelativePath="..\trunk\Zylinder.h"
-				>
-			</File>
+				<File
+					RelativePath=".\src\Waveguide\Chain.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Waveguide\ChainElement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Waveguide\DelayLine.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Waveguide\FBDown.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Waveguide\FBUp.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Waveguide\floatDelayLine.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Waveguide\lossyDelay.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Waveguide\NormJunc.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Waveguide\perfWaveGuide.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Waveguide\Tube.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Quellcodedateien"
@@ -336,23 +356,23 @@
 				Name="Settings"
 				>
 				<File
-					RelativePath="..\trunk\EngineSettings.cpp"
+					RelativePath=".\src\Settings\EngineSettings.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\ExhaustSettings.cpp"
+					RelativePath=".\src\Settings\ExhaustSettings.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\IntakeSettings.cpp"
+					RelativePath=".\src\Settings\IntakeSettings.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Parameter.cpp"
+					RelativePath=".\src\Settings\Parameter.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Settings.cpp"
+					RelativePath=".\src\Settings\Settings.cpp"
 					>
 				</File>
 			</Filter>
@@ -360,43 +380,43 @@
 				Name="Waveguide"
 				>
 				<File
-					RelativePath="..\trunk\Chain.cpp"
+					RelativePath=".\src\Waveguide\Chain.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\ChainElement.cpp"
+					RelativePath=".\src\Waveguide\ChainElement.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\DelayLine.cpp"
+					RelativePath=".\src\Waveguide\DelayLine.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\FBDown.cpp"
+					RelativePath=".\src\Waveguide\FBDown.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\FBUp.cpp"
+					RelativePath=".\src\Waveguide\FBUp.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\floatDelayLine.cpp"
+					RelativePath=".\src\Waveguide\floatDelayLine.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\lossyDelay.cpp"
+					RelativePath=".\src\Waveguide\lossyDelay.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\NormJunc.cpp"
+					RelativePath=".\src\Waveguide\NormJunc.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\perfWaveGuide.cpp"
+					RelativePath=".\src\Waveguide\perfWaveGuide.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Tube.cpp"
+					RelativePath=".\src\Waveguide\Tube.cpp"
 					>
 				</File>
 			</Filter>
@@ -404,27 +424,27 @@
 				Name="Engine"
 				>
 				<File
-					RelativePath="..\trunk\Engine.cpp"
+					RelativePath=".\src\Engine\Engine.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\EnginePart.cpp"
+					RelativePath=".\src\Engine\EnginePart.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Exhaust.cpp"
+					RelativePath=".\src\Engine\Exhaust.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Intake.cpp"
+					RelativePath=".\src\Engine\Intake.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Ventil.cpp"
+					RelativePath=".\src\Engine\Ventil.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Zylinder.cpp"
+					RelativePath=".\src\Engine\Zylinder.cpp"
 					>
 				</File>
 			</Filter>
@@ -432,55 +452,55 @@
 				Name="DSP"
 				>
 				<File
-					RelativePath="..\trunk\CFilter.cpp"
+					RelativePath=".\src\DSP\CFilter.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\CFX.CPP"
+					RelativePath=".\src\DSP\CFX.CPP"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Filt.cpp"
+					RelativePath=".\src\DSP\Filt.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\FIR.cpp"
+					RelativePath=".\src\DSP\FIR.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\HPFilt.cpp"
+					RelativePath=".\src\DSP\HPFilt.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\IIR.cpp"
+					RelativePath=".\src\DSP\IIR.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Limiter.cpp"
+					RelativePath=".\src\DSP\Limiter.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\LPFilt.cpp"
+					RelativePath=".\src\DSP\LPFilt.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Noise.cpp"
+					RelativePath=".\src\DSP\Noise.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\NRev.cpp"
+					RelativePath=".\src\DSP\NRev.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\PCRev.cpp"
+					RelativePath=".\src\DSP\PCRev.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Resonator.cpp"
+					RelativePath=".\src\DSP\Resonator.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\stk.cpp"
+					RelativePath=".\src\DSP\stk.cpp"
 					>
 				</File>
 			</Filter>
@@ -488,11 +508,11 @@
 				Name="Application"
 				>
 				<File
-					RelativePath="..\trunk\CVSS.CPP"
+					RelativePath=".\src\Application\CVSS.CPP"
 					>
 				</File>
 				<File
-					RelativePath="..\trunk\Synth.cpp"
+					RelativePath=".\src\Application\Synth.cpp"
 					>
 				</File>
 			</Filter>

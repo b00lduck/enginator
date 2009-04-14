@@ -1,5 +1,4 @@
-#include "replay.h"
-
+#include "enginator_full.h"
 
 HINSTANCE			hInst;
 ATOM				MyRegisterClass( HINSTANCE hInstance );
@@ -12,7 +11,7 @@ HFONT smFont = NULL;
 bool clicked = true;
 
 float throttle = 0;
-float rpm = 4750;
+float rpm = 2000;
 bool ignition = true;
 
 
@@ -76,10 +75,11 @@ void PaintText(HDC hdc) {
 	rt.bottom = 420;
 	rt.top = 400;
 
+	
 	if (myVSS) {
 		sprintf(text,"rpm: %.0f                   ",rpm);
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-/*		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->K);  
+		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->K);  
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myOutVents[0]->K);  
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
@@ -93,8 +93,8 @@ void PaintText(HDC hdc) {
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 		sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-*/
 	}		
+	
 }
 
 int limiter = 0;
@@ -175,7 +175,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			  throttle = 0;
 		  break;
 
-/*
+
 	  case WM_LBUTTONUP:
 	
 			myVSS->p_Synth->myEngine->params->unClick();			
@@ -235,7 +235,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
 			EndPaint( hWnd, &ps );
 			break;
-*/
+
 		case WM_DESTROY:
 			if (myVSS) {
 				delete(myVSS);
