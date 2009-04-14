@@ -55,7 +55,9 @@ class Engine {
 	private:
 
 		float throttle;
-public:
+	
+	public:
+
 		Zylinder *myCyls[MAXCYLS];
 		Ventil *myOutVents[MAXVENTS];
 		Ventil *myInVents[MAXVENTS];
