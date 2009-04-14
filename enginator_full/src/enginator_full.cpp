@@ -74,7 +74,6 @@ void PaintText(HDC hdc) {
 	rt.right = 600;
 	rt.bottom = 420;
 	rt.top = 400;
-
 	
 	if (myVSS) {
 		sprintf(text,"rpm: %.0f                   ",rpm);
@@ -105,7 +104,7 @@ void calcRPM() {
 	float friction = 20  ;
 	float torque = 50 ;
 	float mass = 0.5;
-	float maxTorque = 4000;
+	float maxTorque = 4500;
 
 	if (rpm > 7200) {
 		limiter = 4  ;

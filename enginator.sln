@@ -9,6 +9,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libenginator", "libenginator\libenginator.vcproj", "{2B2AEBD2-6617-4E46-9FFF-8E966D14348F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enginator_demo", "enginator_demo\enginator_demo.vcproj", "{8F45DD65-A8F3-4DC1-8F9B-A6FC36DE6540}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2B2AEBD2-6617-4E46-9FFF-8E966D14348F} = {2B2AEBD2-6617-4E46-9FFF-8E966D14348F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
