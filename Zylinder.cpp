@@ -69,7 +69,7 @@ void Zylinder::process(float dp) {
 		//	burntime--;
 		//}
 	}
-	// Auspuffen
-	if ((phase > 0) && (phase <= 0.05)) setT(300);
+	// Auspuffen/ansaugen
+	if ((phase > 12) || (phase <= 0.1)) setT(300);
 
 }

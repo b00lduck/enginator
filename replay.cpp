@@ -14,7 +14,7 @@ HFONT smFont = NULL;
 bool clicked = true;
 
 float throttle = 0;
-float rpm = 750;
+float rpm = 4750;
 bool ignition = true;
 
 
@@ -81,7 +81,7 @@ void PaintText(HDC hdc) {
 	if (myVSS) {
 		sprintf(text,"rpm: %.0f                   ",rpm);
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->K);  
+/*		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->K);  
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myOutVents[0]->K);  
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
@@ -93,7 +93,7 @@ void PaintText(HDC hdc) {
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 		sprintf(text,"phaseV: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->LTIe);  
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
+*/		sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 	}		
 }
@@ -103,10 +103,10 @@ float idle_throttle = 0;
 
 void calcRPM() {
 
-	float friction = 50  ;
-	float torque = 200 ;
+	float friction = 20  ;
+	float torque = 50 ;
 	float mass = 0.5;
-	float maxTorque = 5000;
+	float maxTorque = 4000;
 
 	if (rpm > 7200) {
 		limiter = 4  ;
@@ -136,7 +136,7 @@ void calcRPM() {
 	rpm = sqrt(energy / mass);
 
 	if (rpm < 750) { 
-		idle_throttle += 0.04;
+		idle_throttle += 0.01;
 	} else {
 		if (idle_throttle > 0.01) idle_throttle -= 0.01;
 	}
