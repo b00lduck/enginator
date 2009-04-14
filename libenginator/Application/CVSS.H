@@ -1,5 +1,5 @@
 #include "vss_stdinc.h"
-#include "dsound.h"
+#include <dsound.h>
 #include "Synth.h"
 
 class CVSS {

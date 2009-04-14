@@ -75,7 +75,6 @@ DWORD CVSS::RenderThread() {
 }
 
 HRESULT CVSS::Init( HWND hWnd ) {
-    HRESULT hr;
 	m_hWnd = hWnd;
 
 	// Set up direct sound

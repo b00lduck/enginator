@@ -13,10 +13,10 @@ Synth::Synth() {
 
   myHPL = new IIR();
   myHPR = new IIR();
-  myHPL->setLowpass(1,0.1,1);
-  myHPR->setLowpass(1,0.1,1);
+  myHPL->setLowpass(1,0.1f,1);
+  myHPR->setLowpass(1,0.1f,1);
   //Limiter: float thresh,float slope,float tla,float twnd,float tatt,float trel
-  myLimiter = new Limiter(0.9,0.01,5);
+  myLimiter = new Limiter(0.9f,0.01f,5);
 
 }
 
@@ -56,12 +56,12 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 						engineout2 += myEngine->exhaust[i];
 			}
 			
-		  enginein += myEngine->intake[i] * (0.5 + i/4.0f);
+		  enginein += myEngine->intake[i] * (0.5f + i/4.0f);
 
 		}
 
 		myIntake->process(enginein);		
-		myExhaust1->process(engineout1 + engineout2 * 0.75);
+		myExhaust1->process(engineout1 + engineout2 * 0.75f);
 		//myExhaust2->process(engineout2);
 
 		left = right = 0;

@@ -43,10 +43,10 @@ void FIR::setLowpass(int len, float cutoff, float gain) {
 		Coef[HalfLen - Cnt] = Coef[HalfLen + Cnt];
 	}
 
-	TmpFloat = 2.0 * PI / (CoefNum - 1.0);
+	TmpFloat = 2.0f * PI / (CoefNum - 1.0f);
 	Sum = 0.0;
 	for (Cnt=0; Cnt<CoefNum; Cnt++) {
-		Coef[Cnt] *= (0.54 - 0.46 * cos(TmpFloat * Cnt));
+		Coef[Cnt] *= (0.54f - 0.46f * cos(TmpFloat * Cnt));
 		Sum += Coef[Cnt];
 	}
 
@@ -63,7 +63,7 @@ void FIR::setLowpass(int len, float cutoff, float gain) {
 
 float FIR::tick(float input) {
 
-	int Cnt;
+	unsigned int Cnt;
 
 	float output = 0;
 
