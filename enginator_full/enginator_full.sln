@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enginator2", "enginator2.vcproj", "{11CA5672-F8C2-4A25-BA4A-58FCDC5C39B1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enginator_full", "enginator_full.vcproj", "{11CA5672-F8C2-4A25-BA4A-58FCDC5C39B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,5 @@
-#include "vss_stdinc.h"
-#include "CVSS.h"
-#include <process.h>
-#include <dsound.h>
+#include "replay.h"
+
 
 HINSTANCE			hInst;
 ATOM				MyRegisterClass( HINSTANCE hInstance );
@@ -93,8 +91,9 @@ void PaintText(HDC hdc) {
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 		sprintf(text,"phaseV: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->LTIe);  
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-*/		sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
+		sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+*/
 	}		
 }
 
@@ -176,7 +175,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			  throttle = 0;
 		  break;
 
+/*
 	  case WM_LBUTTONUP:
+	
 			myVSS->p_Synth->myEngine->params->unClick();			
 			myVSS->p_Synth->myExhaust1->params->unClick();
 			myVSS->p_Synth->myExhaust2->params->unClick();
@@ -234,9 +235,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
 			EndPaint( hWnd, &ps );
 			break;
-
+*/
 		case WM_DESTROY:
-			SAFE_DELETE(myVSS);
+			if (myVSS) {
+				delete(myVSS);
+				myVSS = 0;
+			}
 			PostQuitMessage( 0 );
 			break;
 
