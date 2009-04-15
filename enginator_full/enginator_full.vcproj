@@ -41,13 +41,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\libenginator\src\Application\;..\libenginator\src\DSP\;..\libenginator\src\Engine\;..\libenginator\src\Waveguide\;..\libenginator\src\Settings\"
+				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="true"
+				FloatingPointExceptions="true"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="1"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -175,6 +177,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\CVSS.CPP"
+				>
+			</File>
+			<File
 				RelativePath=".\src\enginator_full.cpp"
 				>
 			</File>
@@ -185,7 +191,19 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\src\CVSS.H"
+				>
+			</File>
+			<File
 				RelativePath=".\src\enginator_full.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Synth_minimal.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\typedef_minimal.h"
 				>
 			</File>
 		</Filter>

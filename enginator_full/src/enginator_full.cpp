@@ -15,6 +15,7 @@ float rpm = 2000;
 bool ignition = true;
 
 
+
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow ) {
 	MSG msg;
 	MyRegisterClass(hInstance);
@@ -76,21 +77,7 @@ void PaintText(HDC hdc) {
 	rt.top = 400;
 	
 	if (myVSS) {
-		sprintf(text,"rpm: %.0f                   ",rpm);
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->K);  
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"valve: %.2f                   ",myVSS->p_Synth->myEngine->myOutVents[0]->K);  
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"press: %.2f                   ",myVSS->p_Synth->myEngine->myCyls[0]->P);  
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"phaseC: %.2f                   ",myVSS->p_Synth->myEngine->myCyls[0]->phase);  
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"phaseV: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->K);  
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"phaseV: %.2f                   ",myVSS->p_Synth->myEngine->myInVents[0]->LTIe);  
-		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"env: %.2f                    ",myVSS->p_Synth->myLimiter->env);
+		sprintf(text,"rpm: %.0f                                ",rpm);
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 	}		
 	
@@ -138,9 +125,6 @@ void calcRPM() {
 	} else {
 		if (idle_throttle > 0.01) idle_throttle -= 0.01;
 	}
-
-	//rpm = 500;
-
 }
 
 
@@ -155,13 +139,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			InvalidateRect(hWnd,NULL,FALSE);
 			UpdateWindow(hWnd);
 
-			calcRPM();
+			if (myVSS) {
+				calcRPM();
+				myVSS->setThrottle(throttle);
+				myVSS->setRPM(rpm);
+				myVSS->setIgnition(ignition);
+				myVSS->RenderTrigger();		
+			}
 
-			myVSS->setThrottle(throttle);
-			myVSS->setRPM(rpm);
-			myVSS->setIgnition(ignition);
-
-			myVSS->RenderTrigger();		
 			break;	
 
 	  case WM_KEYDOWN:
@@ -174,43 +159,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			  throttle = 0;
 		  break;
 
-
-	  case WM_LBUTTONUP:
-	
-			myVSS->p_Synth->myEngine->params->unClick();			
-			myVSS->p_Synth->myExhaust1->params->unClick();
-			myVSS->p_Synth->myExhaust2->params->unClick();
-			myVSS->p_Synth->myIntake->params->unClick();		    
+	  case WM_LBUTTONUP:	
+			myVSS->mouseUnclick();				    
 			clicked=true;
 		    break;
 
 	  case WM_LBUTTONDOWN:
 			x = (lParam & 0xffff);
 			y = (lParam & 0xffff0000) >> 16;
-			myVSS->p_Synth->myEngine->params->click(20,20,x,y,1);			
-			myVSS->p_Synth->myExhaust1->params->click(300,20,x,y,1);
-			myVSS->p_Synth->myExhaust2->params->click(300,20,x,y,1);
-			myVSS->p_Synth->myIntake->params->click(580,20,x,y,1);
-			clicked=true;
-			break;
-
-	  case WM_RBUTTONDOWN:
-			x = (lParam & 0xffff);
-			y = (lParam & 0xffff0000) >> 16;
-			myVSS->p_Synth->myEngine->params->click(20,20,x,y,-1);
-			myVSS->p_Synth->myExhaust1->params->click(300,20,x,y,-1);
-			myVSS->p_Synth->myExhaust2->params->click(300,20,x,y,-1);
-			myVSS->p_Synth->myIntake->params->click(580,20,x,y,-1);
+			myVSS->mouseClick(x,y);
 			clicked=true;
 			break;
 
 	  case WM_MOUSEMOVE:
 			x = (lParam & 0xffff);
 			y = (lParam & 0xffff0000) >> 16;
-			myVSS->p_Synth->myEngine->params->move(20,20,x,y);
-			myVSS->p_Synth->myExhaust1->params->move(300,20,x,y);
-			myVSS->p_Synth->myExhaust2->params->move(300,20,x,y);
-			myVSS->p_Synth->myIntake->params->move(580,20,x,y);
+			myVSS->mouseMove(x,y);			
 			clicked=true;
 			break;
 
@@ -224,10 +188,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
 			if (myVSS) {
 				if (clicked) {
-					myVSS->p_Synth->myEngine->params->draw(hdc,20,20);
-					myVSS->p_Synth->myExhaust1->params->draw(hdc,300,20);
-					myVSS->p_Synth->myExhaust2->params->draw(hdc,300,20);
-					myVSS->p_Synth->myIntake->params->draw(hdc,580,20);
+					myVSS->drawParams(hdc);
 					clicked=false;
 				}
 			}
@@ -236,14 +197,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			break;
 
 		case WM_DESTROY:
-			if (myVSS) {
-				delete(myVSS);
-				myVSS = 0;
-			}
+			SAFE_DELETE(myVSS);
 			PostQuitMessage( 0 );
 			break;
 
 		default:
+
 			return DefWindowProc( hWnd, message, wParam, lParam );
    }
    return 0;

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="libenginator"
+	Name="libenginator_synth"
 	ProjectGUID="{2B2AEBD2-6617-4E46-9FFF-8E966D14348F}"
 	RootNamespace="libenginator"
 	Keyword="ManagedCProj"
@@ -44,10 +44,14 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="..\libenginator\src\Application;..\libenginator\src\Engine;..\libenginator\src\Settings;..\libenginator\src\DSP;..\libenginator\src\Waveguide"
 				PreprocessorDefinitions="WIN32;_DEBUG"
+				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				BufferSecurityCheck="true"
+				EnableFunctionLevelLinking="true"
+				FloatingPointExceptions="true"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
+				WarningLevel="1"
+				DebugInformationFormat="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -167,10 +171,6 @@
 			<Filter
 				Name="Application"
 				>
-				<File
-					RelativePath=".\src\Application\CVSS.H"
-					>
-				</File>
 				<File
 					RelativePath=".\src\Application\static_inline.h"
 					>
@@ -499,10 +499,6 @@
 			<Filter
 				Name="Application"
 				>
-				<File
-					RelativePath=".\src\Application\CVSS.CPP"
-					>
-				</File>
 				<File
 					RelativePath=".\src\Application\Synth.cpp"
 					>
