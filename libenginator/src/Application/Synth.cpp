@@ -20,11 +20,9 @@ Synth::Synth() {
 }
 
 Synth::~Synth() {
-
 	SAFE_DELETE(myExhaust);
 	SAFE_DELETE(myIntake);
-	SAFE_DELETE(myEngine);
-	
+	SAFE_DELETE(myEngine);	
 	SAFE_DELETE(myHPL);
 	SAFE_DELETE(myHPR);
 	SAFE_DELETE(myLimiter);
