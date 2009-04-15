@@ -1,5 +1,4 @@
 #pragma once
-//#include "vss_stdinc.h"
 #include "Settings.h"
 
 class Exhaust;

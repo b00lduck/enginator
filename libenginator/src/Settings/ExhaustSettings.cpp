@@ -23,8 +23,9 @@ ExhaustSettings::ExhaustSettings(Exhaust* p) : Settings(){
 	addParam("Endref Gain",0.0,0.1,-0.95,0); 
 	addParam("Endref Cutoff",0.05,0.01,0.01,1); 
 	addParam("Endref Order",1,1,1,20);
-	addParam("Pipe Gain" ,VOLUME); 
+	addParam("Tube Noise" ,0,0.1,0,2); 
 	addParam("Exhaust Gain",0.5,0.1,0,10);
+
 }
 
 void ExhaustSettings::callbackSet(int p) {

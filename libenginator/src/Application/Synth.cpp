@@ -1,10 +1,6 @@
 #include "Synth.h"
 
-//Synth* g_pSynth = NULL;
-
 Synth::Synth() {
-
-	//g_pSynth = this;
 
 	myEngine = new Engine();
 	myIntake = new Intake();
@@ -14,6 +10,7 @@ Synth::Synth() {
 	myHPR = new IIR();
 	myHPL->setLowpass(1,0.1f,1);
 	myHPR->setLowpass(1,0.1f,1);
+
 	//Limiter: thresh, slope, tla, twnd, tatt, trel
 	myLimiter = new Limiter(0.9f, 0.01f, 5.0f);
 

@@ -21,12 +21,9 @@ void Exhaust::process(float input) {
     }
 
     float in = input;
-    lastOutL = myWaveguide->process(in);
-    lastOutR = lastOutL;
+    lastOutL = myWaveguide->process(in,0.5);
     lastOutL *= _P(PARAM_EXH_GAIN);
-    lastOutR *= _P(PARAM_EXH_GAIN);
     		
-    supercharge = 0;
 }
 
 void Exhaust::setPipes() {
@@ -38,6 +35,7 @@ void Exhaust::setPipes() {
     myWaveguide->addNormalizedJunction(_P(PARAM_EXH_SS2), 1,1,_P(PARAM_EXH_SS2k1));
     myWaveguide->addNormalizedJunction(_P(PARAM_EXH_SS3), 1,1,_P(PARAM_EXH_SS3k1));
     myWaveguide->addNormalizedJunction(_P(PARAM_EXH_SS4), 1,1,_P(PARAM_EXH_SS4k1));
+	myWaveguide->setNoiseFactor(_P(PARAM_EXH_TUBE_NOISE));
 }
 
 void bubbleSort (int list[], float list1[], int len) {    

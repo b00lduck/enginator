@@ -22,7 +22,7 @@ enum { PARAM_EXH_SS1=0,
 	   PARAM_EXH_ENDFB_GAIN,	
 	   PARAM_EXH_ENDFB_CUTOFF,	
 	   PARAM_EXH_ENDFB_ORDER,
-	   PARAM_EXH_METAL,			
+	   PARAM_EXH_TUBE_NOISE,			
 	   PARAM_EXH_GAIN };
 
 class Exhaust {
@@ -35,10 +35,6 @@ class Exhaust {
 		void process(SIGNAL input);		
 
 		SIGNAL lastOutL;
-		SIGNAL lastOutR;
-		SIGNAL intercooler;
-
-		float supercharge;
 
 		ExhaustSettings *params;
 		perfWaveGuide *myWaveguide;

@@ -88,15 +88,15 @@ float idle_throttle = 0;
 
 void calcRPM() {
 
-	float friction = 20  ;
-	float torque = 50 ;
+	float friction = 30  ;
+	float torque = 150 ;
 	float mass = 0.5;
 	float maxTorque = 4500;
 
-	if (rpm > 7200) {
-		limiter = 4  ;
+	if (rpm > 6900) {
+		limiter = 10  ;
 	}
-	if (limiter >0) {
+	if (limiter > 0) {
 		torque = 0;
 		ignition = false;
 		limiter--;
@@ -121,9 +121,9 @@ void calcRPM() {
 	rpm = sqrt(energy / mass);
 
 	if (rpm < 750) { 
-		idle_throttle += 0.01;
+		idle_throttle += 0.1;
 	} else {
-		if (idle_throttle > 0.01) idle_throttle -= 0.01;
+		if (idle_throttle > 0.1) idle_throttle -= 0.1;
 	}
 }
 
@@ -146,17 +146,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 				myVSS->setIgnition(ignition);
 				myVSS->RenderTrigger();		
 			}
-
 			break;	
 
 	  case WM_KEYDOWN:
-		  if (wParam == VK_SPACE)               
-			  throttle = 1;
+		  switch(wParam) {
+			case VK_F1: throttle = 0.1; break;
+			case VK_F2: throttle = 0.22; break;
+			case VK_F3: throttle = 0.3; break;
+			case VK_F4: throttle = 0.4; break;
+			case VK_F5: throttle = 0.5; break;
+			case VK_F6: throttle = 0.6; break;
+			case VK_F7: throttle = 0.7; break;
+			case VK_F8: throttle = 0.8; break;
+			case VK_F9: throttle = 0.9; break;
+			case VK_SPACE: throttle = 1; break;
+		  }
+
 		  break;
 
 	  case WM_KEYUP:
-		  if (wParam == VK_SPACE) 
-			  throttle = 0;
+		  throttle = 0;
 		  break;
 
 	  case WM_LBUTTONUP:	

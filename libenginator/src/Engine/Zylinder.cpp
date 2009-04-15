@@ -59,17 +59,11 @@ void Zylinder::process(float dp) {
 	setV(V);
 
 	// Zündung !
-	if (ignition) {
-		//if (burntime == 0) {
-			if ((phase > ign_start) && (phase <= ign_stop)) {				
-				setT(300+2500);	
-		//		burntime = 5000;
-		      	}
-		//} else {
-		//	burntime--;
-		//}
+	if ((ignition) && (phase > ign_start) && (phase <= ign_stop)) {				
+		setT(3000);			
 	}
+
 	// Auspuffen/ansaugen
-	if ((phase > 12) || (phase <= 0.1)) setT(300);
+	if ((phase > 0) && (phase <= 0.1)) setT(300);
 
 }

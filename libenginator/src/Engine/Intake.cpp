@@ -7,11 +7,10 @@ Intake::Intake() {
 }
 
 Intake::~Intake() {
-  params->save("intake.params");
+	params->save("intake.params");
 	SAFE_DELETE(params);
 	SAFE_DELETE(myWaveguide);
 }
-
 
 void Intake::process(float input) {
 
@@ -22,7 +21,7 @@ void Intake::process(float input) {
 
 	float in = input;
 
-	lastOutL = myWaveguide->process(in);
+	lastOutL = myWaveguide->process(in,0.5);
 	lastOutR = lastOutL;
 	lastOutL *= _P(PARAM_INT_GAIN);
 	lastOutR *= _P(PARAM_INT_GAIN);
@@ -30,7 +29,6 @@ void Intake::process(float input) {
 }
 
 void Intake::setPipes() {
-
 	SAFE_DELETE(myWaveguide);
 	myWaveguide = new perfWaveGuide(_P(PARAM_INT_GESLAENGE));
 	myWaveguide->setEndFB(_P(PARAM_INT_ENDFB_ORDER),_P(PARAM_INT_ENDFB_CUTOFF),_P(PARAM_INT_ENDFB_GAIN));

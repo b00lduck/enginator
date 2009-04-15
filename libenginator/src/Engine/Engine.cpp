@@ -19,10 +19,8 @@ Engine::Engine() {
 		myCyls[i] = new Zylinder(0.07,0.08,7,0.15,0.04, 1, 1, this);					
 		myOutVents[i] = new Ventil(390,719,_P(PARAM_ENG_OUT_SH),_P(PARAM_ENG_OUT_Q),this);
 		myInVents[i] =  new Ventil(0,180,_P(PARAM_ENG_IN_SH),_P(PARAM_ENG_IN_Q),this);
-	}
-	
+	}	
 	setEngineType(_P(PARAM_ENG_TYPE));
-
 	exhaust_noise = new Noise();
 	intake_noise = new Noise();
 }
