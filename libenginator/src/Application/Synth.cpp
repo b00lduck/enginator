@@ -12,7 +12,7 @@ Synth::Synth() {
 	myHPR->setLowpass(1,0.1f,1);
 
 	//Limiter: thresh, slope, tla, twnd, tatt, trel
-	myLimiter = new Limiter(0.9f, 0.01f, 5.0f);
+	myLimiter = new Limiter(0.95f, 0.01f, 1.0f);
 
 }
 
@@ -63,8 +63,8 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 		sound1 = myExhaust->lastOutL;		
 		sound2 = myIntake->lastOutL;
 
-		left = sound1 + sound2;
-		right = left;
+		left = sound1 * 0.7 + sound2;
+		right = sound2 * 0.7 + sound1;
 
     // DC offset and speaker protection
 		left = myHPL->tickHP(left);
@@ -79,27 +79,15 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 }
 
 void Synth::setRPM(float rpm) {
-	if (myEngine) {
-		myEngine->setRPM(rpm);
-	} else {
-		int i = 0;
-	}
+	myEngine->setRPM(rpm);
 }
 
 void Synth::setThrottle(float throttle) {
-	if (myEngine) {
-		myEngine->setThrottle(throttle);
-	} else {
-		int i = 0;
-	}
+	myEngine->setThrottle(throttle);
 }
 
 void Synth::setIgnition(bool ignition) {
-	if (myEngine) {
-		myEngine->setIgnition(ignition);
-	} else {
-		int i = 0;
-	}	
+	myEngine->setIgnition(ignition);
 }
 
 void Synth::unclick() {

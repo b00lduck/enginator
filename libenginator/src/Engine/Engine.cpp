@@ -13,7 +13,7 @@ Engine::Engine() {
 	ignition = true;
     throttle = 0;
 	rpm = 750;
-	throttleFilter = new LPFilt(0.001,1,1);
+	throttleFilter = new LPFilt(0.5 ,1,1);
 	int i;
 	for (i=0;i<MAXCYLS;i++) {
 		myCyls[i] = new Zylinder(0.07,0.08,7,0.15,0.04, 1, 1, this);					
