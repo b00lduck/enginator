@@ -26,7 +26,7 @@
 
 // Winkel
 #define RAD(x) (PI_180*x)
-#define DEG(x) (x/PI_180)
+//#define DEG(x) (x/PI_180)
 
 // Parameter
 #define _P(x) params->parameter[x]->value

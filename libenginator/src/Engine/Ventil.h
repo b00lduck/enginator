@@ -2,7 +2,7 @@
 #include "vss_stdinc.h"
 #include "EnginePart.h"
 
-#define LIFT_TABLE_LEN 100000 
+#define LIFT_TABLE_LEN 5000 
 
 class Ventil : public EnginePart {
 
@@ -19,19 +19,14 @@ class Ventil : public EnginePart {
 
 		inline float getFlow(float pos);
 
-		float open,close;
-
 		float setdP(float dp);
 	
 		float K;
-		float olen;
-		float duration;
-
-		float open_ph,close_ph,sharpness;
-
-	private:
-
 		float Qmax;
+	
+	private:
+		float sharpness;
+		float open,close;
 		float basicLiftTable[LIFT_TABLE_LEN];
 		float liftTable[LIFT_TABLE_LEN];
 		void calcBasicLiftTable();

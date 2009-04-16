@@ -92,13 +92,13 @@ void Synth::setIgnition(bool ignition) {
 
 float Synth::getProbe(int probeId) {
 	switch(probeId) {
-		case 0: return myEngine->myInVents[0]->K;
-		case 1: return myEngine->myOutVents[0]->K;
-		//case 2: return myEngine->myCyls[0]->P;
+		case 0: return myEngine->myInVents[0]->K / myEngine->myInVents[0]->Qmax;
+		case 1: return myEngine->myOutVents[0]->K / myEngine->myOutVents[0]->Qmax;		
 		case 2: return myEngine->myCyls[0]->phase;
-
-
+		case 3: return myEngine->myCyls[0]->x * 100;
+		case 4: return myEngine->myCyls[0]->P;
 	}
+	return 0;
 }
 
 void Synth::unclick() {

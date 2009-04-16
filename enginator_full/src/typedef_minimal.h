@@ -10,6 +10,10 @@
 #define RANGE(val,min,max) { if(val<min) val=min; else if (val>max) val=max;}
 #define Clip(x) RANGE(x,-0.99f,0.99f);
 
+#define PI 3.14159265f
+#define RAD(x) ((PI/180.0f)*x)
+#define DEG(x) (x*180.0f/PI)
+
 #define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
 #define SAFE_DELETE(p)		{ if(p) { delete(p); (p)=NULL; } }
 

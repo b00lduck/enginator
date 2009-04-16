@@ -77,27 +77,87 @@ void PaintText(HDC hdc) {
 	rt.top = 400;
 	
 	if (myVSS) {
-		sprintf(text,"rpm: %.0f                                ",rpm);
+		sprintf_s(text,150,"rpm: %.0f                                ",rpm);
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"inQ: %.2f                                ",myVSS->p_Synth->getProbe(0));
+		sprintf_s(text,150,"inQ: %.2f                                ",myVSS->p_Synth->getProbe(0));
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"outQ: %.2f                                ",myVSS->p_Synth->getProbe(1));
+		sprintf_s(text,150,"outQ: %.2f                                ",myVSS->p_Synth->getProbe(1));
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
-		sprintf(text,"press: %.2f                                ",myVSS->p_Synth->getProbe(2));
+		sprintf_s(text,150,"phase: %.2f                                ",DEG(myVSS->p_Synth->getProbe(2)));
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf_s(text,150,"x: %.2f                                ",myVSS->p_Synth->getProbe(3));
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 	}		
 	
 }
+
+
+void PaintCyl(HDC hdc) {
+
+	int x = 150;
+	int y = 400;
+
+	#define CYLWIDTH 50
+	#define CYLHEIGHT 120
+	#define CYLYOFFSET 20
+
+	#define INVENTWIDTH 10
+	#define INVENTHEIGHT 20
+	#define INVENTYOFFSET 0
+	#define INVENTXOFFSET 5
+
+	#define OUTVENTWIDTH 10
+	#define OUTVENTHEIGHT 20
+	#define OUTVENTYOFFSET 0
+	#define OUTVENTXOFFSET 35
+
+	#define PISTHEIGHT 20
+	#define PISTSPACE 2
+
+	// Draw cylinder
+	Rectangle(hdc,x,y+CYLYOFFSET,x+CYLWIDTH,y+CYLHEIGHT+CYLYOFFSET);
+
+	// Draw piston
+	int pisty = y + myVSS->p_Synth->getProbe(3) * 5;
+	Rectangle(hdc,x+PISTSPACE,pisty+CYLYOFFSET,x+CYLWIDTH-PISTSPACE,pisty+PISTHEIGHT+CYLYOFFSET);
+
+	// Draw InVent
+	int inventy = y + myVSS->p_Synth->getProbe(0) * 10;
+	Rectangle(hdc,x+INVENTXOFFSET,inventy+INVENTYOFFSET,
+		          x+INVENTWIDTH+INVENTXOFFSET,inventy+INVENTHEIGHT+INVENTYOFFSET);
+
+	// Draw InVentCurve
+	
+	int cx = myVSS->p_Synth->getProbe(2) * 30;
+	int cy = myVSS->p_Synth->getProbe(0) * 50;
+	SetPixel(hdc,x+cx+200,y+cy+50,0);
+
+	// Draw OutVent
+	int outventy = y + myVSS->p_Synth->getProbe(1) * 10;
+	Rectangle(hdc,x+OUTVENTXOFFSET,outventy+OUTVENTYOFFSET,
+		          x+OUTVENTWIDTH+OUTVENTXOFFSET,outventy+OUTVENTHEIGHT+OUTVENTYOFFSET);
+
+	// Draw OutVentCurve
+	
+	cx = myVSS->p_Synth->getProbe(2) * 30;
+	cy = myVSS->p_Synth->getProbe(1) * 50;
+	SetPixel(hdc,x+cx+200,y+cy+100,0);
+
+
+
+}
+
+
 
 int limiter = 0;
 float idle_throttle = 0;
 
 void calcRPM() {
 
-	float friction = 7  ;
-	float torque = 30 ;
-	float mass = 0.1;
-	float maxTorque = 5200;
+	float friction = 7.0f;
+	float torque = 30.0f;
+	float mass = 0.1f;
+	float maxTorque = 5200.0f;
 
 	if (limiter > 0) {
 		torque = 0;
@@ -128,12 +188,13 @@ void calcRPM() {
 	rpm = sqrt(energy / mass);
 
 	if (rpm < 750) { 
-		idle_throttle += 0.1;
+		idle_throttle += 0.1f;
 	} else {
-		if (idle_throttle > 0.1) idle_throttle -= 0.1;
+		if (idle_throttle > 0.1f) idle_throttle -= 0.1f;
 	}
 
-	rpm = 20;
+	//rpm = 20;
+
 }
 
 
@@ -159,15 +220,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
 	  case WM_KEYDOWN:
 		  switch(wParam) {
-			case VK_F1: throttle = 0.1; break;
-			case VK_F2: throttle = 0.22; break;
-			case VK_F3: throttle = 0.3; break;
-			case VK_F4: throttle = 0.4; break;
-			case VK_F5: throttle = 0.5; break;
-			case VK_F6: throttle = 0.6; break;
-			case VK_F7: throttle = 0.7; break;
-			case VK_F8: throttle = 0.8; break;
-			case VK_F9: throttle = 0.9; break;
+			case VK_F1: throttle = 0.1f; break;
+			case VK_F2: throttle = 0.22f; break;
+			case VK_F3: throttle = 0.3f; break;
+			case VK_F4: throttle = 0.4f; break;
+			case VK_F5: throttle = 0.5f; break;
+			case VK_F6: throttle = 0.6f; break;
+			case VK_F7: throttle = 0.7f; break;
+			case VK_F8: throttle = 0.8f; break;
+			case VK_F9: throttle = 0.9f; break;
 			case VK_SPACE: throttle = 1; break;
 		  }
 
@@ -202,6 +263,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			hdc = BeginPaint (hWnd, &ps);
 
 			PaintText(hdc);		
+			PaintCyl(hdc);
 			SelectObject(hdc, smFont); 
 
 			if (myVSS) {
