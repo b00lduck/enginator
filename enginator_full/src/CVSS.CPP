@@ -58,8 +58,9 @@ DWORD CVSS::RenderThread() {
 		}
 		size -= size % (GRANULARITY << 2);
 		if (size > 0) {
-			p_Synth->synthRender(pDataL,pDataR,size >> 2);
-			DitherStereo((DWORD*)pFinalBuf,pDataL,pDataR,size >> 2);
+			//p_Synth->synthRender(pDataL,pDataR,size >> 2);
+			//DitherStereo((DWORD*)pFinalBuf,pDataL,pDataR,size >> 2);
+			p_Synth->synthRenderBytesCombined(pFinalBuf,size >> 2);
 			WriteToBuffer(m_pDSB,m_lastbufplaypos,pFinalBuf,size);
 			m_samples_rendered += size >> 2;
 			m_lastbufplaypos = (m_lastbufplaypos + size) % MAINBUFBYTES;
@@ -214,7 +215,6 @@ CVSS::~CVSS() {
 
 	SAFE_RELEASE(m_pDSB);
 	SAFE_RELEASE(m_pDS); 
-
 	SAFE_DELETE(p_Synth);
 }
 

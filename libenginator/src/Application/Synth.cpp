@@ -1,5 +1,12 @@
 #include "Synth.h"
 
+
+static inline int Dither(float* in) {
+  Clip(*in); 
+  return (int)(32767 * (*in));
+}
+
+
 Synth::Synth() {
 
 	myEngine = new Engine();
@@ -13,6 +20,9 @@ Synth::Synth() {
 
 	//Limiter: thresh, slope, tla, twnd, tatt, trel
 	myLimiter = new Limiter(0.95f, 0.01f, 1.0f);
+
+	pDataL = (float*) malloc(SAMPLERATE * sizeof(float));
+	pDataR = (float*) malloc(SAMPLERATE * sizeof(float));
 
 }
 
@@ -77,6 +87,43 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 		length_samples--;
 	}
 }
+
+
+void Synth::synthRenderBytes(unsigned char* pByteDataL, unsigned char* pByteDataR, DWORD length_samples) {
+
+	float* lSrc = pDataL;
+	float* rSrc = pDataR;
+
+	synthRender(pDataL,pDataR,length_samples);
+
+	WORD* lDest = (WORD*)pByteDataL;
+	WORD* rDest = (WORD*)pByteDataR;
+
+	while(length_samples--) {
+		*lDest++ = Dither(lSrc++); 
+		*rDest++ = Dither(rSrc++); 
+	}
+
+}
+
+void Synth::synthRenderBytesCombined(unsigned char* pByteData, DWORD length_samples) {
+
+	float* lSrc = pDataL;
+	float* rSrc = pDataR;
+
+	synthRender(pDataL,pDataR,length_samples);
+
+	DWORD* b = (DWORD*)pByteData;
+
+	while(length_samples--) {
+		*b++ = (Dither(lSrc++) << 16) + (Dither(rSrc++)); 
+	}
+
+}
+
+
+
+
 
 void Synth::setRPM(float rpm) {
 	myEngine->setRPM(rpm);

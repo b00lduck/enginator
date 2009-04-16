@@ -22,7 +22,7 @@ static inline int Dither(float* in) {
   return (int)(32767 * (*in));
 }
 
-static inline void DitherStereo(DWORD* pDest, float* pSrcL, float* pSrcR, DWORD length) {
-  while(length--)
+static inline void DitherStereo(DWORD* pDest, float* pSrcL, float* pSrcR, DWORD length_samples) {
+  while(length_samples--)
 	*pDest++ = (Dither(pSrcL++) << 16) + (Dither(pSrcR++)); 
 }
