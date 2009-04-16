@@ -73,5 +73,6 @@ class Engine {
 
 		void setInVentsSharpness(float sharpness);
 		void setOutVentsSharpness(float sharpness);
-
+		void setInVentsTiming(float start, float stop);
+		void setOutVentsTiming(float start, float stop);
 };

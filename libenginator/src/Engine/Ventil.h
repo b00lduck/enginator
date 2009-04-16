@@ -14,7 +14,7 @@ class Ventil : public EnginePart {
 		void setQmax(float Qmax);
 		void setSharpness(float sharpness);
 		void setPhases();
-
+		void setTiming(float start, float stop);
 		void process(float dp);
 
 		inline float getFlow(float pos);
@@ -32,11 +32,8 @@ class Ventil : public EnginePart {
 	private:
 
 		float Qmax;
-		
 		float basicLiftTable[LIFT_TABLE_LEN];
-
 		float liftTable[LIFT_TABLE_LEN];
-		
 		void calcBasicLiftTable();
 
 };

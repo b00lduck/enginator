@@ -90,6 +90,17 @@ void Synth::setIgnition(bool ignition) {
 	myEngine->setIgnition(ignition);
 }
 
+float Synth::getProbe(int probeId) {
+	switch(probeId) {
+		case 0: return myEngine->myInVents[0]->K;
+		case 1: return myEngine->myOutVents[0]->K;
+		//case 2: return myEngine->myCyls[0]->P;
+		case 2: return myEngine->myCyls[0]->phase;
+
+
+	}
+}
+
 void Synth::unclick() {
 	myEngine->params->unclick();
 	myExhaust->params->unclick();

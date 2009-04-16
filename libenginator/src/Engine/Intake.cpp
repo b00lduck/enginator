@@ -37,6 +37,7 @@ void Intake::setPipes() {
 	myWaveguide->addNormalizedJunction(_P(PARAM_INT_SS2), 1,0.1,_P(PARAM_INT_SS2k1));
 	myWaveguide->addNormalizedJunction(_P(PARAM_INT_SS3), 1,0.1,_P(PARAM_INT_SS3k1));
 	myWaveguide->addNormalizedJunction(_P(PARAM_INT_SS4), 1,0.1,_P(PARAM_INT_SS4k1));
+	myWaveguide->setNoiseFactor(_P(PARAM_INT_TUBE_NOISE));
 }
 
 

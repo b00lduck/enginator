@@ -18,6 +18,8 @@ class Synth {
 		void move(int x, int y);
 		void draw(HDC hdc);
 
+		float getProbe(int probeId);
+
 	private:
 		void *dummy[6];
 

@@ -18,6 +18,13 @@ void Ventil::setSharpness(float sharpness) {
 	}
 }
 
+void Ventil::setTiming(float start, float stop) {
+	setOpen(RAD(start));
+	setClose(RAD(stop));
+	calcBasicLiftTable();
+	setSharpness(sharpness);
+}
+
 void Ventil::calcBasicLiftTable() {
 
 	memset(liftTable,0,sizeof(liftTable));
@@ -34,7 +41,6 @@ void Ventil::calcBasicLiftTable() {
 
 		if ((phase >= open) && (phase <= close)) {
 			float v = (sin(sinPhase) + 1) / 2.0f;
-			//v = pow(v, sharpness);
 			basicLiftTable[i] = v;
 			sinPhase += sinPhaseStep;		
 		}
@@ -61,7 +67,7 @@ void Ventil::process(float dp) {
 	int lti = floor(f);
 	float frac = f - lti;	
 	
-	if (lti < LIFT_TABLE_LEN) {
+	if (lti < LIFT_TABLE_LEN-1) {
 		// linear interpolation
 		K = liftTable[lti] * (1-frac) + liftTable[lti+1] * frac;
 		K *= Qmax;

@@ -51,7 +51,7 @@ void Zylinder::setT(float newT) {
 void Zylinder::process(float dp) {
 
 	#define ign_start	(PI2)			
-	#define ign_stop	(PI2+0.5)			
+	#define ign_stop	(PI2+1)			
 	
 	float tmp = ( (sin(phase) * hub / (2.0f*pleuel_l)) - desachs / pleuel_l);
 	x = (hub / 2.0f) * (1.0f - cos(phase)) + pleuel_l * ( 1.0f - sqrt(1-(tmp*tmp)));
@@ -60,10 +60,13 @@ void Zylinder::process(float dp) {
 
 	// Zündung !
 	if ((ignition) && (phase > ign_start) && (phase <= ign_stop)) {				
-		setT(3000);			
+		setT(1500 + rand() / 100);			
 	}
 
-	// Auspuffen/ansaugen
-	if ((phase > 0) && (phase <= 0.1)) setT(300);
+	// Ansaugen und temp senken
+	if ((phase > 0) && (phase <= PI)) {
+		float Tdiff = (T - 300);
+		setT(T-Tdiff*0.1);
+	}
 
 }

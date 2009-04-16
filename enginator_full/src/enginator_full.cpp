@@ -79,6 +79,12 @@ void PaintText(HDC hdc) {
 	if (myVSS) {
 		sprintf(text,"rpm: %.0f                                ",rpm);
 		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"inQ: %.2f                                ",myVSS->p_Synth->getProbe(0));
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"outQ: %.2f                                ",myVSS->p_Synth->getProbe(1));
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
+		sprintf(text,"press: %.2f                                ",myVSS->p_Synth->getProbe(2));
+		DrawText( hdc, text, 20, &rt, DT_LEFT ); rt.bottom += 20; rt.top += 20;
 	}		
 	
 }
@@ -88,20 +94,21 @@ float idle_throttle = 0;
 
 void calcRPM() {
 
-	float friction = 30  ;
-	float torque = 150 ;
-	float mass = 0.5;
-	float maxTorque = 4500;
+	float friction = 7  ;
+	float torque = 30 ;
+	float mass = 0.1;
+	float maxTorque = 5200;
 
-	if (rpm > 6900) {
-		limiter = 10  ;
-	}
 	if (limiter > 0) {
 		torque = 0;
 		ignition = false;
 		limiter--;
 	} else {
-		ignition = true;
+		if (rpm > 6500) {
+			limiter = 5;
+		} else {
+			ignition = true;
+		}
 	}
 
 	float energy = (rpm*rpm) * mass;
@@ -125,6 +132,8 @@ void calcRPM() {
 	} else {
 		if (idle_throttle > 0.1) idle_throttle -= 0.1;
 	}
+
+	rpm = 20;
 }
 
 

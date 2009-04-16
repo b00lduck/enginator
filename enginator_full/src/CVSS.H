@@ -4,10 +4,6 @@
 #include "Synth_minimal.h"
 #include "typedef_minimal.h"
 
-
-
-
-
 class CVSS {
 
 	public:
@@ -33,6 +29,7 @@ class CVSS {
 		void mouseClick(int x, int y);
 		void drawParams(HDC hdc);
 
+		Synth*	p_Synth;
 
 	private:
 
@@ -60,7 +57,6 @@ class CVSS {
 		BOOL	m_bStopSoundThread;
 		BOOL	m_playing;
 
-		Synth*	p_Synth;
 		void Render(float* pDataL, float* pDataR, DWORD length);
 
 		CRITICAL_SECTION CSRenderThread;

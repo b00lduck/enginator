@@ -23,7 +23,8 @@ IntakeSettings::IntakeSettings(Intake* p) : Settings(){
 	addParam("Endref Gain",0.0,0.1,-0.95,0); 
 	addParam("Endref Cutoff",0.05,0.01,0.01,1); 
 	addParam("Endref Order",1,1,1,20);
-	addParam("Intake Gain",5,0.5,0,10);			
+	addParam("Intake Gain",5,0.5,0,10);
+	addParam("Tube Noise" ,0,0.1,0,2); 
 }
 
 void IntakeSettings::callbackSet(int p) {
