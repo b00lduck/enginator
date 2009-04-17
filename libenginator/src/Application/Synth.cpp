@@ -46,27 +46,18 @@ void Synth::synthRender(float* pDataL, float* pDataR, DWORD length_samples) {
 		myEngine->move();	
 		myEngine->process();		
 			
-		int banks[8] = { 0, 1, 1, 1 , 0, 1, 0, 0 };
+		int banks[8] = { 1, 1, 1, 1 , 1, 1, 0, 0 };
 		
-		float engineout1 = 0;
-		float engineout2 = 0;
+		float engineout = 0;
 		float enginein = 0;
 		
-		for(int i=0;i<myEngine->cyls;i++) {
-		
-			switch (banks[i]) {
-				case 0:	engineout1 += myEngine->exhaust[i]; break;
-				case 1: engineout2 += myEngine->exhaust[i]; break;
-				case 2: engineout1 += myEngine->exhaust[i];
-						engineout2 += myEngine->exhaust[i];
-			}
-			
-		  enginein += myEngine->intake[i] * (0.5f + i/4.0f);
-
+		for(int i=0;i<myEngine->cyls;i++) {	
+			engineout += myEngine->exhaust[i] * (0.5f + i/6.0f);
+			enginein += myEngine->intake[i] * (0.5f + i/6.0f);
 		}
 
 		myIntake->process(enginein);		
-		myExhaust->process(engineout1 + engineout2 * 0.75f);
+		myExhaust->process(engineout);
 
 		left = right = 0;
 		
