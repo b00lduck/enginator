@@ -30,22 +30,25 @@ void Ventil::calcBasicLiftTable() {
 	memset(liftTable,0,sizeof(liftTable));
 	memset(basicLiftTable,0,sizeof(basicLiftTable));
 	
-
 	float liftTablePhaseStep = FOUR_PI / (float)LIFT_TABLE_LEN;
 	float phase = 0;
 
 	float sinPhase = 1.5 * PI; // start is the low of the sinecurve (3/2 PI) 
+	
+	if (open > close) close += FOUR_PI;
 	float sinPhaseStep = (close-open) / FOUR_PI;
 	sinPhaseStep = liftTablePhaseStep / (sinPhaseStep * 2); 
+	
 
 	int i;
-	for(i=0;i<LIFT_TABLE_LEN;i++) {
+	for(i=0;i<LIFT_TABLE_LEN*2;i++) {
 
 		if ((phase >= open) && (phase <= close)) {
 			float v = (sin(sinPhase) + 1) / 2.0f;
-			basicLiftTable[i] = v;
+			basicLiftTable[i%LIFT_TABLE_LEN] = v;
 			sinPhase += sinPhaseStep;		
 		}
+
 		phase += liftTablePhaseStep;		
 	}
 
